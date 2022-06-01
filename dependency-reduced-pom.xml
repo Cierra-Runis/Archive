@@ -4,7 +4,7 @@
   <groupId>pers.cierra_runis.diary</groupId>
   <artifactId>Java_Diary</artifactId>
   <name>Diary</name>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <build>
     <plugins>
       <plugin>

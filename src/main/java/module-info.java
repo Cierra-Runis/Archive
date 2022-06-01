@@ -14,5 +14,6 @@ module pers.cierra_runis.diary {
 
     opens pers.cierra_runis.diary to javafx.fxml;
 
+    exports pers.cierra_runis.diary.api to com.google.gson;
     exports pers.cierra_runis.diary;
 }

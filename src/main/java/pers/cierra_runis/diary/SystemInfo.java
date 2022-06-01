@@ -19,15 +19,18 @@ public class SystemInfo {
     static final double HOMEPAGE_WIDTH = SCREEN_WIDTH * 160 / 192;
     static final double DATE_WIDTH = SCREEN_WIDTH * 25 / 192;
     static final double EDITOR_WIDTH = SCREEN_WIDTH * 120 / 192;
+    static final double ABOUT_WIDTH = SCREEN_WIDTH * 527 / 1920;
 
     static final double SCREEN_HEIGHT = rectangle2D.getHeight();
     static final double PASSWORD_HEIGHT = 0.8 * SCREEN_HEIGHT * 5 / 108;
     static final double DATE_HEIGHT = PASSWORD_HEIGHT;
     static final double HOMEPAGE_HEIGHT = SCREEN_HEIGHT * 90 / 108;
     static final double EDITOR_HEIGHT = HOMEPAGE_HEIGHT * 0.8;
+    static final double ABOUT_HEIGHT = HOMEPAGE_HEIGHT * 33 / 108;
 
-    static final String PASSWORD = "114";
     static final String APP_NAME = "我的日记";
+    static final String APP_DATE = "2022.6.6";
+    static final String APP_PUBLIC_VERSION = "1.0.0";
     static final String DEFAULT_DATE = "19000101";
 
     static final Image ICON = new Image("file:src/main/resources/" + "icon/Icon.png");
@@ -48,7 +51,7 @@ public class SystemInfo {
     static final Image SORTUP_UNPRESSED = new Image("file:src/main/resources/" + "icon/SortUp_Unpressed.png");
     static final Image SORTDOWN_PRESSED = new Image("file:src/main/resources/" + "icon/SortDown_Pressed.png");
     static final Image SORTDOWN_UNPRESSED = new Image("file:src/main/resources/" + "icon/SortDown_Unpressed.png");
-
+    static final Image ABOUT = new Image("file:src/main/resources/" + "icon/About.png");
 
     static final Font FONT_SC_BOLD = Font.loadFont("file:src/main/resources/" + "font/SourceHanSansCN-Bold.ttf", 12);
     static final Font FONT_SC_HEAVY = Font.loadFont("file:src/main/resources/" + "font/SourceHanSansCN-Heavy.ttf", 12);
@@ -77,6 +80,12 @@ public class SystemInfo {
 
     static final Background BG_CARD = new Background(new BackgroundFill(PAINT_CARD, new CornerRadii(8), new Insets(0)));
 
+    //未来和 info.json 结合
+    static String PASSWORD = Base.stringToMD5("mchaomai_233");
+    static String MOTTO = "好学习是为了不听讲";
     static boolean newToOld = true;
+    static String USER_NAME = "Cierra_Runis";
+
+    static Image PROFILE_PHOTO = new Image("file:users/Profile_photo.jpg");
 
 }

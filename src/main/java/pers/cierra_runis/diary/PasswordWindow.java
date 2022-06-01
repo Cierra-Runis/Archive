@@ -41,14 +41,14 @@ public class PasswordWindow {
 
         passwordField.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ENTER) {
-                if (Objects.equals(passwordField.getText(), PASSWORD)) {
+                if (Objects.equals(Base.stringToMD5(passwordField.getText()), PASSWORD)) {
                     result = true;
-                    System.out.println("密码正确");
+                    System.out.printf("输入字符串的 MD5 值为 %s，密码正确\n", Base.stringToMD5(passwordField.getText()));
                     stage.close();
                 } else {
                     result = false;
+                    System.out.printf("输入字符串的 MD5 值为 %s，密码错误\n", Base.stringToMD5(passwordField.getText()));
                     passwordField.setText("");
-                    System.out.println("密码错误");
                 }
             }
         });

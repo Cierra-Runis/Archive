@@ -1,18 +1,24 @@
 package pers.cierra_runis.diary;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import pers.cierra_runis.diary.api.HitokotoResponse;
 
 import java.util.Objects;
 
@@ -498,12 +504,104 @@ public class Page extends Application {
         Right.setLayoutY(30);
         Right.setBorder(new Border(new BorderStroke(PAINT_DARK, PAINT_DARK, PAINT_DARK, PAINT_LIGHTDARK, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
 
+        //头像借鉴于 https://www.jianshu.com/p/779090da020f
+        StackPane stackPane = new StackPane();
+        stackPane.setPrefWidth(70);
+        stackPane.setPrefHeight(70);
+        stackPane.setLayoutX(0.8 * HOMEPAGE_WIDTH + 15);
+        stackPane.setLayoutY(55);
+        stackPane.setPadding(new Insets(5));
+        stackPane.setEffect(new DropShadow(5, 2.0, 2.0, Color.rgb(33, 37, 43)));
+        ImageView imageView = new ImageView(PROFILE_PHOTO);
+        imageView.setFitWidth(70);
+        imageView.setFitHeight(70);
+        imageView.setClip(new Circle(35, 35, 35));
+        imageView.setSmooth(true);
+        stackPane.getChildren().add(imageView);
+
+        Label user_name = new Label(USER_NAME);
+        user_name.setTextFill(PAINT_GRAY);
+        user_name.setFont(new Font(FONT_SC_BOLD.getName(), 21));
+        user_name.setLayoutX(0.8 * HOMEPAGE_WIDTH + 105);
+        user_name.setLayoutY(65);
+
+        Text motto = new Text(MOTTO);
+        motto.setLayoutX(0.8 * HOMEPAGE_WIDTH + 105);
+        motto.setLayoutY(115);
+        motto.setFont(FONT_SC_BOLD);
+        motto.setFill(PAINT_GRAY);
+        motto.setWrappingWidth(160);
+
+        //右栏菜单
+        VBox Menu = new VBox();
+        Menu.setLayoutX(0.8 * HOMEPAGE_WIDTH);
+        Menu.setLayoutY(160);
+        Menu.setPrefWidth(0.2 * HOMEPAGE_WIDTH);
+
+        VBox About = new VBox();
+        About.setPrefHeight(45);
+        Pane AboutPane = new Pane();
+        About.setBorder(new Border(new BorderStroke(PAINT_LIGHTDARK, PAINT_DARK, PAINT_LIGHTDARK, PAINT_DARK, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
+        Button about_icon = new Button();
+        about_icon.setMinWidth(45);
+        about_icon.setMinHeight(45);
+        about_icon.setLayoutX(8);
+        about_icon.setBackground(new Background(new BackgroundImage(ABOUT, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false))));
+        Text about_text = new Text("关于");
+        about_text.setLayoutX(60);
+        about_text.setLayoutY(28);
+        about_text.setFill(PAINT_GRAY);
+        about_text.setFont(new Font(FONT_SC_BOLD.getName(), 16));
+        AboutPane.getChildren().add(about_icon);
+        AboutPane.getChildren().add(about_text);
+        About.getChildren().add(AboutPane);
+        About.setOnMouseClicked(event -> {
+            stage.setOpacity(0.6);
+            AboutWindow.display();
+            stage.setOpacity(0.9);
+        });
+
+        Menu.getChildren().add(About);
+
+        VBox Hitokoto = new VBox();
+        Hitokoto.setLayoutX(0.81 * HOMEPAGE_WIDTH);
+        Hitokoto.setLayoutY(0.95 * HOMEPAGE_HEIGHT);
+        Hitokoto.setMaxWidth(0.18 * HOMEPAGE_WIDTH);
+        Hitokoto.setBorder(new Border(new BorderStroke(PAINT_DARK, PAINT_DARK, PAINT_LIGHTDARK, PAINT_DARK, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
+
+        Text sentence = new Text();
+        //线程相关由 谢佬（https://github.com/WOo0W） 提供帮助
+        Thread httpThread = new Thread(() -> {
+            try {
+                HitokotoResponse hitokotoResponse = HitokotoResponse.getHitokoto();
+                String hitokoto = hitokotoResponse.hitokoto;
+                String yurai = hitokotoResponse.from;
+                String uuid = hitokotoResponse.uuid;
+                Platform.runLater(() -> {
+                    sentence.setText("『 " + hitokoto + " 』" + "  ——  " + yurai);
+                    Hitokoto.setOnMouseClicked(event -> getHostServices().showDocument("https://hitokoto.cn/?uuid=" + uuid));
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        });
+        httpThread.start();
+
+        sentence.setFill(PAINT_GRAY);
+        sentence.setFont(FONT_SC_BOLD);
+        sentence.setSmooth(true);
+        sentence.setWrappingWidth(0.18 * HOMEPAGE_WIDTH);
+
+        Hitokoto.getChildren().add(sentence);
+
+        //背景
         HBox Body = new HBox();
         Body.setPrefWidth(HOMEPAGE_WIDTH);
         Body.setPrefHeight(HOMEPAGE_HEIGHT);
         Body.setBackground(BG_DARK);
 
-
+        //组
         Group group = new Group();
         group.getChildren().add(Body);
         group.getChildren().add(Left);
@@ -519,9 +617,18 @@ public class Page extends Application {
         group.getChildren().add(edit);
         group.getChildren().add(add);
         group.getChildren().add(sort);
+        group.getChildren().add(Hitokoto);
+        group.getChildren().add(stackPane);
+        group.getChildren().add(user_name);
+        group.getChildren().add(motto);
+        group.getChildren().add(Menu);
 
+        //设置 scene
         Scene scene = new Scene(group);
         scene.setFill(null);
+
+        Hitokoto.setOnMouseEntered(event -> scene.setCursor(Cursor.HAND));
+        Hitokoto.setOnMouseExited(event -> scene.setCursor(Cursor.DEFAULT));
 
         //定位
         stage.setX((SCREEN_WIDTH - HOMEPAGE_WIDTH) / 2);

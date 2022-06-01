@@ -4,7 +4,7 @@
 
     <groupId>pers.cierra_runis.diary</groupId>
     <artifactId>Java_Diary</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>Diary</name>
 
     <properties>
@@ -105,6 +105,7 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.1</version>
@@ -133,6 +134,7 @@
                     <target>11</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
@@ -155,6 +157,8 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
+
 </project>

@@ -158,7 +158,7 @@ public class Editor {
         group.getChildren().add(changeDate);
 
         Scene scene = new Scene(group);
-        scene.getStylesheets().add("file:src/main/resources/" + "pers/cierra_runis/diary/textarea.css");
+        scene.getStylesheets().add("file:resources/" + "pers/cierra_runis/diary/textarea.css");
         scene.setFill(null);
 
         //定位

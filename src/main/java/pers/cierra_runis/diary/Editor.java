@@ -1,6 +1,5 @@
 package pers.cierra_runis.diary;
 
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -21,29 +20,49 @@ import java.util.Objects;
 
 import static pers.cierra_runis.diary.SystemInfo.*;
 
+/**
+ * 这个 Editor 类创建窗口用于编辑日记内容。<br/>
+ *
+ * @author 8008121403
+ * @version 1.0.0
+ */
 public class Editor {
 
-    final Diary diaryInEditor;
-    final String toDate;
+    static double x1;               //用于移动页面的参数
+    static double y1;               //用于移动页面的参数
+    static double x_stage;          //用于移动页面的参数
+    static double y_stage;          //用于移动页面的参数
 
-    boolean edited = false;
+    final Diary diaryInEditor;      //Editor 类所操作的 Diary 类
+    final String toDate;            //转移至的日期
+    boolean edited = false;         //是否被编辑
 
-    double x1;
-    double y1;
-    double x_stage;
-    double y_stage;
-
+    /**
+     * 有参构造 Editor 类。</br>
+     *
+     * @param date 构造 Editor 类时传入的格式如 20220601 的日期字符串
+     * @author 8008121403
+     */
     public Editor(String date) {
+
         diaryInEditor = new Diary(date);
         diaryInEditor.readDiary();
         toDate = diaryInEditor.date;
+
     }
 
+    /**
+     * 创建窗口进行一个日记的编辑。</br>
+     *
+     * @return 是否被编辑
+     * @author 8008121403
+     */
     public boolean display() {
 
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
 
+        //右上保存按钮
         HBox save = new HBox();
         Text textInSaveButton = new Text("保存");
         textInSaveButton.setTextAlignment(TextAlignment.CENTER);
@@ -57,6 +76,7 @@ public class Editor {
         save.setAlignment(Pos.CENTER);
         save.getChildren().add(textInSaveButton);
 
+        //左上取消按钮
         HBox cancel = new HBox();
         Text textInCancelButton = new Text("取消");
         textInCancelButton.setTextAlignment(TextAlignment.CENTER);
@@ -70,10 +90,12 @@ public class Editor {
         cancel.setAlignment(Pos.CENTER);
         cancel.getChildren().add(textInCancelButton);
         cancel.setOnMouseClicked(mouseEvent -> {
+            //按下取消按钮返回 false
             edited = false;
             stage.close();
         });
 
+        //右下修改日期按钮
         Button changeDate = new Button("");
         changeDate.setPrefWidth(30);
         changeDate.setPrefHeight(30);
@@ -83,7 +105,7 @@ public class Editor {
         changeDate.setLayoutY(EDITOR_HEIGHT - 35);
         changeDate.setOnMouseClicked(mouseEvent -> diaryInEditor.date = DateWindow.display());
 
-
+        //上部日记标题编辑区域
         TextField textField = new TextField(diaryInEditor.titleString);
         textField.setPrefWidth(150);
         textField.setPrefHeight(0.8 * DATE_HEIGHT);
@@ -102,16 +124,19 @@ public class Editor {
         Title.setBackground(BG_DARKER);
         Title.setAlignment(Pos.CENTER);
         Title.setOnMouseDragged(mouseEvent -> {
+            //拖动改变位置
             stage.setX(x_stage + mouseEvent.getScreenX() - x1);
             stage.setY(y_stage + mouseEvent.getScreenY() - y1);
         });
         Title.setOnMousePressed(mouseEvent -> {
+            //按下获取初始值
             x1 = mouseEvent.getScreenX();
             y1 = mouseEvent.getScreenY();
             x_stage = stage.getX();
             y_stage = stage.getY();
         });
 
+        //中部日记内容编辑区域
         TextArea textArea = new TextArea();
         textArea.setLayoutX(0.1 * EDITOR_WIDTH);
         textArea.setLayoutY(40);
@@ -125,6 +150,7 @@ public class Editor {
         textArea.setStyle("-fx-text-fill: white");
         textArea.setFont(new Font(FONT_SC_NORMAL.getName(), 15));
 
+        //保存按钮的具体实现
         save.setOnMouseClicked(mouseEvent -> {
             if (Objects.equals(textField.getText(), "")) {
                 textField.requestFocus();
@@ -142,12 +168,13 @@ public class Editor {
             }
         });
 
-
+        //底衬
         HBox Body = new HBox();
         Body.setPrefWidth(EDITOR_WIDTH);
         Body.setPrefHeight(EDITOR_HEIGHT);
         Body.setBackground(BG_DARK);
 
+        //加组
         Group group = new Group();
         group.getChildren().add(Body);
         group.getChildren().add(Title);
@@ -158,7 +185,7 @@ public class Editor {
         group.getChildren().add(changeDate);
 
         Scene scene = new Scene(group);
-        scene.getStylesheets().add("file:resources/" + "pers/cierra_runis/diary/textarea.css");
+        scene.getStylesheets().add("file:resources/" + "pers/cierra_runis/diary/textarea.css");             //使用 css 美化中部日记内容编辑区域
         scene.setFill(null);
 
         //定位
@@ -180,7 +207,9 @@ public class Editor {
         //显示
         stage.showAndWait();
 
+        //关闭窗口后返回结果
         return edited;
+
     }
 
 }

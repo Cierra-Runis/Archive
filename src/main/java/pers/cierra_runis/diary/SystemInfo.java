@@ -10,6 +10,12 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 
+/**
+ * 这个 SystemInfo 类提供全局量辅助主程序。<br/>
+ *
+ * @author 8008121403
+ * @version 1.0.0
+ */
 public class SystemInfo {
 
     static final Rectangle2D rectangle2D = Screen.getPrimary().getBounds();
@@ -80,12 +86,11 @@ public class SystemInfo {
 
     static final Background BG_CARD = new Background(new BackgroundFill(PAINT_CARD, new CornerRadii(8), new Insets(0)));
 
-    //未来和 info.json 结合
+    //未来和 info.json 数据库结合
     static String PASSWORD = Base.stringToMD5("8008121403");
     static String MOTTO = "好学习是为了不听讲";
     static boolean newToOld = true;
     static String USER_NAME = "Cierra_Runis";
-
     static Image PROFILE_PHOTO = new Image("file:users/Profile_photo.jpg");
 
 }

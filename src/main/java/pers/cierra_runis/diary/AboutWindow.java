@@ -16,24 +16,37 @@ import javafx.stage.StageStyle;
 
 import static pers.cierra_runis.diary.SystemInfo.*;
 
+/**
+ * 这个 AboutWindow 类创建窗口显示相关信息。<br/>
+ *
+ * @author 8008121403
+ * @version 1.0.0
+ */
 public class AboutWindow {
 
-    static double x1;
-    static double y1;
-    static double x_stage;
-    static double y_stage;
+    static double x1;               //用于移动页面的参数
+    static double y1;               //用于移动页面的参数
+    static double x_stage;          //用于移动页面的参数
+    static double y_stage;          //用于移动页面的参数
 
+    /**
+     * 创建窗口显示相关信息。<br/>
+     *
+     * @author 8008121403
+     */
     public static void display() {
 
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
 
+        //大 Icon
         ImageView Big_Icon = new ImageView(ICON);
         Big_Icon.setFitHeight(60);
         Big_Icon.setFitWidth(60);
         Big_Icon.setLayoutX(20);
         Big_Icon.setLayoutY(45);
 
+        //显示 APP 名称和对外版本号
         Text Name = new Text(APP_NAME + " ver." + APP_PUBLIC_VERSION);
         Name.setLayoutX(105);
         Name.setLayoutY(70);
@@ -41,24 +54,28 @@ public class AboutWindow {
         Name.setFill(PAINT_GRAY);
         Name.setSmooth(true);
 
+        //详细的对外版本号和构建信息
         Text PubicVersion = new Text("对外版本号 " + APP_PUBLIC_VERSION + "，于 " + APP_DATE + " 构建");
         PubicVersion.setLayoutX(105);
         PubicVersion.setLayoutY(90);
         PubicVersion.setFill(PAINT_GRAY);
         PubicVersion.setSmooth(false);
 
+        //参与人员
         Text Builders = new Text("参与人员\n8008121403\t8008121407\t8008******");
         Builders.setLayoutX(105);
         Builders.setLayoutY(130);
         Builders.setFill(PAINT_GRAY);
         Builders.setSmooth(false);
 
+        //获取用户程序正运行的 Java 版本
         Text UsersInfo = new Text("程序正运行 Java 版本为 " + System.getProperty("java.version"));
         UsersInfo.setLayoutX(105);
         UsersInfo.setLayoutY(200);
         UsersInfo.setFill(PAINT_GRAY);
         UsersInfo.setSmooth(false);
 
+        //关闭按钮
         Button close = new Button("");
         close.setPrefWidth(50);
         close.setPrefHeight(30);
@@ -83,10 +100,12 @@ public class AboutWindow {
         Title.setBackground(BG_DARKER);
         Title.setAlignment(Pos.CENTER);
         Title.setOnMouseDragged(mouseEvent -> {
+            //拖动改变位置
             stage.setX(x_stage + mouseEvent.getScreenX() - x1);
             stage.setY(y_stage + mouseEvent.getScreenY() - y1);
         });
         Title.setOnMousePressed(mouseEvent -> {
+            //按下获取初始值
             x1 = mouseEvent.getScreenX();
             y1 = mouseEvent.getScreenY();
             x_stage = stage.getX();
@@ -102,6 +121,7 @@ public class AboutWindow {
         Body.setBackground(BG_DARK);
         Body.setAlignment(Pos.CENTER);
 
+        //加组
         Group group = new Group();
         group.getChildren().add(Body);
         group.getChildren().add(Title);

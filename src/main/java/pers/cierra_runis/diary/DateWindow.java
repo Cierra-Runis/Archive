@@ -1,6 +1,5 @@
 package pers.cierra_runis.diary;
 
-
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -16,9 +15,23 @@ import java.util.Objects;
 
 import static pers.cierra_runis.diary.SystemInfo.*;
 
+/**
+ * 这个 DateWindow 类创建窗口要求输入日期。<br/>
+ *
+ * @author 8008121403
+ * @version 1.0.0
+ */
 public class DateWindow {
+
+    //储存日期
     public static String date;
 
+    /**
+     * 创建窗口要求输入日期。<br/>
+     *
+     * @return 输入的日期
+     * @author 8008121403
+     */
     public static String display() {
 
         Calendar calendar = Calendar.getInstance();
@@ -26,6 +39,7 @@ public class DateWindow {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
 
+        //左部的自动填充按钮
         Button autoDateFill = new Button("");
         autoDateFill.setPrefWidth(25);
         autoDateFill.setPrefHeight(25);
@@ -39,6 +53,7 @@ public class DateWindow {
         autoDateFill.setOnMouseEntered(mouseEvent -> AutoFill.setBackground(BG_DARK));
         autoDateFill.setOnMouseExited(mouseEvent -> AutoFill.setBackground(null));
 
+        //年份的输入框
         TextField year = new TextField();
         year.setPrefWidth(48);
         year.setPrefHeight(0.8 * DATE_HEIGHT);
@@ -62,6 +77,7 @@ public class DateWindow {
             }
         });
 
+        //月份的输入框
         TextField month = new TextField();
         month.setPrefWidth(30);
         month.setPrefHeight(0.8 * DATE_HEIGHT);
@@ -88,6 +104,7 @@ public class DateWindow {
             }
         });
 
+        //日份的输入框
         TextField day = new TextField();
         day.setPrefWidth(30);
         day.setPrefHeight(0.8 * DATE_HEIGHT);
@@ -125,7 +142,7 @@ public class DateWindow {
             }
         });
 
-
+        //自动填充按钮的具体实现
         autoDateFill.setOnMouseClicked(mouseEvent -> {
             year.setText(String.valueOf(calendar.get(Calendar.YEAR)));
             month.setText(String.valueOf(calendar.get(Calendar.MONTH) + 1));
@@ -138,6 +155,7 @@ public class DateWindow {
             }
         });
 
+        //右部的确认按钮
         Button confirm = new Button("");
         confirm.setPrefWidth(25);
         confirm.setPrefHeight(25);
@@ -192,7 +210,7 @@ public class DateWindow {
         Body.setBackground(BG_DARKER);
         Body.setAlignment(Pos.CENTER);
 
-
+        //加组
         Group group = new Group();
         group.getChildren().add(Body);
         group.getChildren().add(AutoFill);
@@ -224,7 +242,9 @@ public class DateWindow {
         //显示
         stage.showAndWait();
 
+        //关闭窗口后返回结果
         return date;
+
     }
 
 }

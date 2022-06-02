@@ -12,14 +12,29 @@ import javafx.stage.StageStyle;
 
 import static pers.cierra_runis.diary.SystemInfo.*;
 
+/**
+ * 这个 AlertWindow 类创建窗口显示消息并要求选择是或否。<br/>
+ *
+ * @author 8008121403
+ * @version 1.0.0
+ */
 public class AlertWindow {
+
+    //存储返回值
     private static boolean result = false;
 
+    /**
+     * 创建窗口显示消息并要求选择是或否。<br/>
+     *
+     * @return 用户选择的值
+     * @author 8008121403
+     */
     public static boolean display(String tit, String msg) {
 
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
 
+        //中部的提示文本
         Label label = new Label(msg);
         label.setFont(FONT_SC_REGULAR);
         label.setTextFill(PAINT_GRAY);
@@ -29,6 +44,7 @@ public class AlertWindow {
         Label.setBackground(BG_DARKER);
         Label.setAlignment(Pos.CENTER);
 
+        //左部的取消按钮
         Button cancel = new Button("");
         cancel.setPrefWidth(32);
         cancel.setPrefHeight(32);
@@ -42,10 +58,12 @@ public class AlertWindow {
         cancel.setOnMouseEntered(mouseEvent -> Cancel.setBackground(BG_DARK));
         cancel.setOnMouseExited(mouseEvent -> Cancel.setBackground(null));
         cancel.setOnMouseClicked(mouseEvent -> {
+            //按下取消按钮返回 false
             result = false;
             stage.close();
         });
 
+        //右部的确认按钮
         Button confirm = new Button("");
         confirm.setPrefWidth(25);
         confirm.setPrefHeight(25);
@@ -59,6 +77,7 @@ public class AlertWindow {
         confirm.setOnMouseEntered(mouseEvent -> Confirm.setBackground(BG_DARK));
         confirm.setOnMouseExited(mouseEvent -> Confirm.setBackground(null));
         confirm.setOnMouseClicked(mouseEvent -> {
+            //按下确认按钮返回 true
             result = true;
             stage.close();
         });
@@ -72,6 +91,7 @@ public class AlertWindow {
         Body.setBackground(BG_DARKER);
         Body.setAlignment(Pos.CENTER);
 
+        //加组
         Group group = new Group();
         group.getChildren().add(Body);
         group.getChildren().add(Label);
@@ -100,6 +120,9 @@ public class AlertWindow {
         //显示
         stage.showAndWait();
 
+        //关闭窗口后返回结果
         return result;
+
     }
+
 }

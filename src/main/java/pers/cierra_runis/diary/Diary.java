@@ -3,6 +3,12 @@ package pers.cierra_runis.diary;
 import java.io.*;
 import java.util.Objects;
 
+/**
+ * 这个 Diary 类主要用于文件操作。<br/>
+ *
+ * @author 8008121403
+ * @version 1.0.0
+ */
 public class Diary {
 
     String date;                                    //date 年月日，例如 19000101
@@ -15,7 +21,11 @@ public class Diary {
         this.date = date;
     }
 
-    //存储这个类中的所有信息
+    /**
+     * 存储这个类对应文件夹中的所有信息。<br/>
+     *
+     * @author 8008121403
+     */
     public void saveDiary() {
 
         //如果这个类的 date 已经存在，那么我们删去原先的
@@ -43,6 +53,11 @@ public class Diary {
 
     }
 
+    /**
+     * 删除这个类对应文件夹中的所有信息。<br/>
+     *
+     * @author 8008121403
+     */
     public void deleteDiary() {
 
         File diarysFile = new File("diarys/");
@@ -58,6 +73,11 @@ public class Diary {
 
     }
 
+    /**
+     * 读取这个类对应文件夹中的所有信息。<br/>
+     *
+     * @author 8008121403
+     */
     public void readDiary() {
 
         File diarysFile = new File("diarys/");
@@ -92,7 +112,12 @@ public class Diary {
         }
     }
 
-
+    /**
+     * 转移这个类对应文件夹中的所有信息。<br/>
+     *
+     * @param toDate 转移至的日期
+     * @author 8008121403
+     */
     public void transportDiary(String toDate) {
 
         File diarysFile = new File("diarys/");
@@ -115,7 +140,12 @@ public class Diary {
 
     }
 
-
+    /**
+     * 将这个类中文本字符串按换行切片。<br/>
+     *
+     * @return 按换行切片后的字符串数组
+     * @author 8008121403
+     */
     public String[] textToStrings() {
         return textString.split("\n");
     }

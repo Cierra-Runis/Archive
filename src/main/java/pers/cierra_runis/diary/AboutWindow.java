@@ -47,7 +47,7 @@ public class AboutWindow {
         PubicVersion.setFill(PAINT_GRAY);
         PubicVersion.setSmooth(false);
 
-        Text Builders = new Text("参与人员\n8008121403\t8008121407\t8008******");
+        Text Builders = new Text("参与人员\n8008121403\t8008121407");
         Builders.setLayoutX(105);
         Builders.setLayoutY(130);
         Builders.setFill(PAINT_GRAY);
@@ -62,7 +62,9 @@ public class AboutWindow {
         Button close = new Button("");
         close.setPrefWidth(50);
         close.setPrefHeight(30);
-        close.setBackground(new Background(new BackgroundImage(CLOSE, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(25, 25, false, false, false, false))));
+        close.setBackground(
+                new Background(new BackgroundImage(CLOSE, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(25, 25, false, false, false, false))));
         HBox Title_Right_CLOSE = new HBox(close);
         Title_Right_CLOSE.setPrefWidth(50);
         Title_Right_CLOSE.setPrefHeight(30);
@@ -73,7 +75,7 @@ public class AboutWindow {
         close.setOnMousePressed(mouseEvent -> Title_Right_CLOSE.setBackground(BG_PINK));
         close.setOnMouseClicked(mouseEvent -> stage.close());
 
-        //标题底衬
+        // 标题底衬
         Label title = new Label("关于 " + APP_NAME);
         title.setFont(FONT_SC_NORMAL);
         title.setTextFill(Color.LIGHTGRAY);
@@ -93,7 +95,7 @@ public class AboutWindow {
             y_stage = stage.getY();
         });
 
-        //底衬
+        // 底衬
         HBox Body = new HBox();
         Body.setLayoutX(0);
         Body.setLayoutY(0);
@@ -115,11 +117,11 @@ public class AboutWindow {
         Scene scene = new Scene(group);
         scene.setFill(null);
 
-        //定位
+        // 定位
         stage.setX((SCREEN_WIDTH - ABOUT_WIDTH) / 2);
         stage.setY((SCREEN_HEIGHT - ABOUT_HEIGHT) / 2);
 
-        //配置
+        // 配置
         stage.setTitle("关于");
         stage.getIcons().add(ICON);
         stage.setResizable(false);
@@ -128,10 +130,10 @@ public class AboutWindow {
         stage.setHeight(ABOUT_HEIGHT);
         stage.setOpacity(0.9);
 
-        //布局
+        // 布局
         stage.setScene(scene);
 
-        //显示
+        // 显示
         stage.showAndWait();
 
     }

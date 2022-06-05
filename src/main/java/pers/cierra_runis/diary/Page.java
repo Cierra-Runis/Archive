@@ -24,23 +24,41 @@ import java.util.Objects;
 
 import static pers.cierra_runis.diary.SystemInfo.*;
 
+/**
+ * 这个 Page 类用于显示主面板，是用户的最主要使用页面。</br>
+ *
+ * @author 8008121403
+ * @version 1.0.0
+ */
 public class Page extends Application {
 
-    double x1;
-    double y1;
-    double x_stage;
-    double y_stage;
+    static double x1;               //用于移动页面的参数
+    static double y1;               //用于移动页面的参数
+    static double x_stage;          //用于移动页面的参数
+    static double y_stage;          //用于移动页面的参数
 
-    Diary diaryInPage;
-    Diary[] diaries;
+    Diary diaryInPage;              //Page 类所操作的 Diary 类
+    Diary[] diaries;                //diarys 文件夹下的所有日记构成的 Diary 类数组
 
+    /**
+     * 有参构造 Page 类，显示传入日期所对应的日记。</br>
+     *
+     * @param date 构造 Page 类时传入的格式如 20220601 的日期字符串
+     * @author 8008121403
+     */
     public Page(String date) {
+
         diaryInPage = new Diary(date);
         diaries = Base.getAllDiary();
         diaryInPage.readDiary();
+
     }
 
-    //无参构造函数寻找最新一篇，没有日记则显示默认日记
+    /**
+     * 无参构造函数寻找最新一篇，没有日记则显示默认日记。</br>
+     *
+     * @author 8008121403
+     */
     public Page() {
 
         diaryInPage = new Diary(DEFAULT_DATE);
@@ -55,6 +73,12 @@ public class Page extends Application {
 
     }
 
+    /**
+     * 创建窗口进行一个日记的显示。</br>
+     *
+     * @param stage 初始 stage 值
+     * @author 8008121403
+     */
     @Override
     public void start(Stage stage) {
 
@@ -62,7 +86,10 @@ public class Page extends Application {
             System.out.println("你还没有写过日记。");
         }
 
-        //标题左部
+
+        ///////////////////////////////////////////////////////////////标题相关///////////////////////////////////////////////////////////////
+
+        //标题左部（暂无功能）
         Button setting = new Button("");
         setting.setPrefWidth(50);
         setting.setPrefHeight(30);
@@ -77,7 +104,7 @@ public class Page extends Application {
         setting.setOnMouseExited(mouseEvent -> Title_Left.setBackground(null));
         //TODO: 单击事件
 
-        //标题右部
+        //标题右部的最小化按钮
         Button minimize = new Button("");
         minimize.setPrefWidth(50);
         minimize.setPrefHeight(30);
@@ -91,6 +118,7 @@ public class Page extends Application {
         minimize.setOnMouseExited(mouseEvent -> Title_Right_MINIMIZE.setBackground(null));
         minimize.setOnMouseClicked(mouseEvent -> stage.setIconified(true));
 
+        //标题右部的关闭按钮
         Button close = new Button("");
         close.setPrefWidth(50);
         close.setPrefHeight(30);
@@ -125,7 +153,10 @@ public class Page extends Application {
             y_stage = stage.getY();
         });
 
-        //左栏
+
+        ///////////////////////////////////////////////////////////////左栏相关///////////////////////////////////////////////////////////////
+
+        //左栏 VBox 框
         VBox Left = new VBox();
         Left.setLayoutX(0.01 * HOMEPAGE_WIDTH);
         Left.setLayoutY(30 + 41);
@@ -133,6 +164,7 @@ public class Page extends Application {
         Left.setPrefHeight(HOMEPAGE_HEIGHT * HOMEPAGE_WIDTH);
         Left.setBorder(new Border(new BorderStroke(PAINT_DARK, PAINT_LIGHTDARK, PAINT_DARK, PAINT_DARK, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
 
+        //左栏日记列表
         VBox LeftList = new VBox();
         LeftList.setLayoutX(0);
         LeftList.setLayoutY(450);
@@ -140,10 +172,12 @@ public class Page extends Application {
 
         if (diaries != null) {
 
+            //头部隔空用 VBox
             VBox blank = new VBox();
             blank.setMaxHeight(8);
             LeftList.getChildren().add(blank);
 
+            //准备名为 list 的 Diary 类数组，按 newToOld 排序
             Diary[] list = new Diary[diaries.length];
             if (!newToOld) {
                 list = diaries;
@@ -152,6 +186,7 @@ public class Page extends Application {
                     list[i] = diaries[diaries.length - i - 1];
                 }
             }
+            //为每个日记都准备卡片
             for (Diary diary : list) {
                 HBox card = new HBox();
                 card.setMaxWidth(0.18 * HOMEPAGE_WIDTH);
@@ -202,11 +237,16 @@ public class Page extends Application {
                     stage.close();
                     new Page(diary.date).start(new Stage());
                 });
+
+                //卡片加入左栏日记列表
                 LeftList.getChildren().add(card);
             }
         }
+
+        //左栏 VBox 栏获得左栏日记列表
         Left.getChildren().add(LeftList);
 
+        //左部 VBox 拖动的具体实现
         Left.setOnMouseDragged(mouseEvent -> {
 
             if ((HOMEPAGE_HEIGHT - LeftList.getHeight() - 50) >= 30 + 41) {
@@ -222,6 +262,8 @@ public class Page extends Application {
             }
 
         });
+
+        //左部 VBox 滚动的具体实现
         Left.setOnScroll(scrollEvent -> {
 
             y1 = -scrollEvent.getDeltaY();
@@ -240,12 +282,12 @@ public class Page extends Application {
             }
         });
         Left.setOnMousePressed(mouseEvent -> {
+            //按下获取初始值
             y1 = mouseEvent.getScreenY();
             y_stage = Left.getLayoutY();
         });
 
-
-        //左部工具栏
+        //左部工具栏的添加按钮
         Button add = new Button("");
         add.setPrefWidth(30);
         add.setPrefHeight(30);
@@ -270,6 +312,7 @@ public class Page extends Application {
             }
         });
 
+        //左部工具栏的排序按钮
         Button sort = new Button();
         sort.setPrefWidth(30);
         sort.setPrefHeight(30);
@@ -285,7 +328,7 @@ public class Page extends Application {
             new Page(diaryInPage.date).start(new Stage());
         });
 
-        //工具底衬
+        //左部工具栏的底衬
         Label left_tool = new Label("");
         HBox Left_Tool = new HBox(left_tool);
         Left_Tool.setPrefWidth(0.2 * HOMEPAGE_WIDTH);
@@ -297,7 +340,9 @@ public class Page extends Application {
         Left_Tool.setAlignment(Pos.CENTER);
 
 
-        //中栏
+        ///////////////////////////////////////////////////////////////中栏相关///////////////////////////////////////////////////////////////
+
+        //中栏 VBox 框
         VBox Middle = new VBox();
         Middle.setLayoutX(0.23 * HOMEPAGE_WIDTH);
         Middle.setLayoutY(30);
@@ -305,15 +350,18 @@ public class Page extends Application {
         Middle.setPrefHeight(HOMEPAGE_WIDTH * HOMEPAGE_HEIGHT);
         Middle.setSpacing(8);
 
+        //中栏的上部（用于显示时间信息）///////////////////////////////////
         VBox UpMiddle = new VBox();
         UpMiddle.setLayoutX(0);
         UpMiddle.setLayoutY(0);
         UpMiddle.setPrefWidth(0.54 * HOMEPAGE_WIDTH);
         UpMiddle.setBorder(new Border(new BorderStroke(PAINT_DARK, PAINT_DARK, PAINT_LIGHTDARK, PAINT_DARK, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
 
+        //辅助用面板
         Pane pane = new Pane();
         String dateformat = diaryInPage.date.substring(0, 4) + "-" + diaryInPage.date.substring(4, 6) + "-" + diaryInPage.date.substring(6, 8);
 
+        //中栏的上部的年份、月份部分
         Text up = new Text(diaryInPage.date.substring(0, 4) + "年，" + Integer.valueOf(diaryInPage.date.substring(4, 6)) + "月");
         up.setFont(new Font(FONT_SC_MEDIUM.getName(), 15));
         up.setFill(PAINT_GRAY);
@@ -321,6 +369,7 @@ public class Page extends Application {
         up.setLayoutX((0.54 * HOMEPAGE_WIDTH - up.getBoundsInLocal().getWidth()) / 2);
         up.setLayoutY(40);
 
+        //中栏的上部的日份部分
         Text middle = new Text(Integer.valueOf(diaryInPage.date.substring(6, 8)).toString());
         middle.setFont(new Font(FONT_SC_BOLD.getName(), 50));
         middle.setFill(PAINT_GRAY);
@@ -328,6 +377,7 @@ public class Page extends Application {
         middle.setLayoutX((0.54 * HOMEPAGE_WIDTH - middle.getBoundsInLocal().getWidth()) / 2);
         middle.setLayoutY(90);
 
+        //中栏的上部的星期、时间部分
         Text down = new Text(Base.dateToWeek(dateformat) + "  " + diaryInPage.time.substring(0, 2) + ":" + diaryInPage.time.substring(2, 4));
         down.setFont(new Font(FONT_SC_REGULAR.getName(), 15));
         down.setFill(PAINT_GRAY);
@@ -335,13 +385,17 @@ public class Page extends Application {
         down.setLayoutX((0.54 * HOMEPAGE_WIDTH - down.getBoundsInLocal().getWidth()) / 2);
         down.setLayoutY(120);
 
+        //辅助用面板三孩了
         pane.getChildren().add(up);
         pane.getChildren().add(middle);
         pane.getChildren().add(down);
         pane.setPrefHeight(150);
+
+        //中栏的上部
         UpMiddle.getChildren().add(pane);
 
 
+        //中栏的下部（用于显示日记的渲染效果）///////////////////////////////////
         VBox DownMiddle = new VBox();
         DownMiddle.setLayoutX(50);
         DownMiddle.setLayoutY(10);
@@ -349,12 +403,15 @@ public class Page extends Application {
         DownMiddle.setPrefHeight(HOMEPAGE_HEIGHT - 233);
         DownMiddle.setSpacing(8);
 
-
+        //为每一行都进行分析渲染
         for (String s : diaryInPage.textToStrings()) {
+
+            //准备每行文本的 HBox
             HBox hBox = new HBox();
 
+            //如果包含日期标签
             if (Base.isTimeLabel(s)) {
-
+                //则按日记标签渲染
                 Pane time_part = new Pane();
 
                 Label time_icon = new Label();
@@ -382,6 +439,7 @@ public class Page extends Application {
                 hBox.getChildren().add(hBox1);
 
             } else {
+                //否则按普通文本渲染
                 Text text = new Text(s);
                 text.setSmooth(true);
                 text.setFont(new Font(FONT_SC_BOLD.getName(), 15));
@@ -390,11 +448,16 @@ public class Page extends Application {
                 text.setWrappingWidth(0.54 * HOMEPAGE_WIDTH);
                 hBox.getChildren().add(text);
             }
+
+            //渲染完则加入中栏的下部
             DownMiddle.getChildren().add(hBox);
         }
 
+        //中栏（用于整合上下部）///////////////////////////////////
         Middle.getChildren().add(UpMiddle);
         Middle.getChildren().add(DownMiddle);
+
+        //中栏 VBox 拖动的具体实现
         Middle.setOnMouseDragged(mouseEvent -> {
 
             if ((HOMEPAGE_HEIGHT - UpMiddle.getHeight() - DownMiddle.getHeight() - 50) >= 30) {
@@ -410,6 +473,8 @@ public class Page extends Application {
             }
 
         });
+
+        //中栏 VBox 滚动的具体实现
         Middle.setOnScroll(scrollEvent -> {
 
             y1 = -scrollEvent.getDeltaY();
@@ -428,12 +493,15 @@ public class Page extends Application {
             }
         });
         Middle.setOnMousePressed(mouseEvent -> {
+            //按下获取初始值
             y1 = mouseEvent.getScreenY();
             y_stage = Middle.getLayoutY();
         });
 
 
-        //底部工具栏
+        ///////////////////////////////////////////////////////////////底栏相关///////////////////////////////////////////////////////////////
+
+        //底部工具栏的删除按钮
         Button delete = new Button("");
         delete.setPrefWidth(30);
         delete.setPrefHeight(30);
@@ -460,6 +528,7 @@ public class Page extends Application {
             }
         });
 
+        //底部工具栏的编辑按钮
         Button edit = new Button("");
         edit.setPrefWidth(30);
         edit.setPrefHeight(30);
@@ -484,7 +553,7 @@ public class Page extends Application {
             }
         });
 
-        //工具底衬
+        //底部工具栏的底衬
         Label tool = new Label("");
         HBox Tool = new HBox(tool);
         Tool.setPrefWidth(0.6 * HOMEPAGE_WIDTH);
@@ -495,7 +564,10 @@ public class Page extends Application {
         Tool.setBorder(new Border(new BorderStroke(PAINT_LIGHTDARK, PAINT_DARK, PAINT_DARK, PAINT_DARK, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
         Tool.setAlignment(Pos.CENTER);
 
-        //右栏
+
+        ///////////////////////////////////////////////////////////////右栏相关///////////////////////////////////////////////////////////////
+
+        //右栏 VBox 框
         VBox Right = new VBox();
         Right.setSpacing(8);
         Right.setPrefWidth(0.2 * HOMEPAGE_WIDTH);
@@ -504,7 +576,7 @@ public class Page extends Application {
         Right.setLayoutY(30);
         Right.setBorder(new Border(new BorderStroke(PAINT_DARK, PAINT_DARK, PAINT_DARK, PAINT_LIGHTDARK, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
 
-        //头像借鉴于 https://www.jianshu.com/p/779090da020f
+        //头像实现借鉴于 https://www.jianshu.com/p/779090da020f
         StackPane stackPane = new StackPane();
         stackPane.setPrefWidth(70);
         stackPane.setPrefHeight(70);
@@ -519,12 +591,14 @@ public class Page extends Application {
         imageView.setSmooth(true);
         stackPane.getChildren().add(imageView);
 
+        //用户名
         Label user_name = new Label(USER_NAME);
         user_name.setTextFill(PAINT_GRAY);
         user_name.setFont(new Font(FONT_SC_BOLD.getName(), 21));
         user_name.setLayoutX(0.8 * HOMEPAGE_WIDTH + 105);
         user_name.setLayoutY(65);
 
+        //用户格言
         Text motto = new Text(MOTTO);
         motto.setLayoutX(0.8 * HOMEPAGE_WIDTH + 105);
         motto.setLayoutY(115);
@@ -532,12 +606,14 @@ public class Page extends Application {
         motto.setFill(PAINT_GRAY);
         motto.setWrappingWidth(160);
 
+
         //右栏菜单
         VBox Menu = new VBox();
         Menu.setLayoutX(0.8 * HOMEPAGE_WIDTH);
         Menu.setLayoutY(160);
         Menu.setPrefWidth(0.2 * HOMEPAGE_WIDTH);
 
+        //右栏菜单的 关于 选项
         VBox About = new VBox();
         About.setPrefHeight(45);
         Pane AboutPane = new Pane();
@@ -561,8 +637,11 @@ public class Page extends Application {
             stage.setOpacity(0.9);
         });
 
+        //关于 选项成了菜单的小孩
         Menu.getChildren().add(About);
 
+
+        //右栏 Hitokoto 小组件
         VBox Hitokoto = new VBox();
         Hitokoto.setLayoutX(0.81 * HOMEPAGE_WIDTH);
         Hitokoto.setLayoutY(0.95 * HOMEPAGE_HEIGHT);
@@ -595,13 +674,16 @@ public class Page extends Application {
 
         Hitokoto.getChildren().add(sentence);
 
-        //背景
+
+        ///////////////////////////////////////////////////////////////其他相关///////////////////////////////////////////////////////////////
+
+        //底衬
         HBox Body = new HBox();
         Body.setPrefWidth(HOMEPAGE_WIDTH);
         Body.setPrefHeight(HOMEPAGE_HEIGHT);
         Body.setBackground(BG_DARK);
 
-        //组
+        //加组
         Group group = new Group();
         group.getChildren().add(Body);
         group.getChildren().add(Left);
@@ -623,10 +705,10 @@ public class Page extends Application {
         group.getChildren().add(motto);
         group.getChildren().add(Menu);
 
-        //设置 scene
         Scene scene = new Scene(group);
         scene.setFill(null);
 
+        //因为要使用 scene 而放到后面的 鼠标指针图标变换的具体实现
         Hitokoto.setOnMouseEntered(event -> scene.setCursor(Cursor.HAND));
         Hitokoto.setOnMouseExited(event -> scene.setCursor(Cursor.DEFAULT));
 
@@ -650,4 +732,5 @@ public class Page extends Application {
         stage.show();
 
     }
+
 }

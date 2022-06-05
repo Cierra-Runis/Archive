@@ -5,13 +5,30 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
-
+/**
+ * 这个 DiaryApplication 类用于创建 diarys 文件夹并提示输入密码后进入主页面。<br/>
+ *
+ * @author 8008121403
+ * @version 1.0.0
+ */
 public class DiaryApplication extends Application {
 
+    /**
+     * 启动程序。</br>
+     *
+     * @param args 不被使用
+     * @author 8008121403
+     */
     public static void main(String[] args) {
         launch();
     }
 
+    /**
+     * 开始程序。</br>
+     *
+     * @param stage 初始 stage 值
+     * @author 8008121403
+     */
     @Override
     public void start(Stage stage) {
 

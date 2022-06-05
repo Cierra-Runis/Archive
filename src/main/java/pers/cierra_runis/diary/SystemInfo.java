@@ -10,6 +10,12 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 
+/**
+ * 这个 SystemInfo 类提供全局量辅助主程序。<br/>
+ *
+ * @author 8008121403
+ * @version 1.0.0
+ */
 public class SystemInfo {
 
     static final Rectangle2D rectangle2D = Screen.getPrimary().getBounds();
@@ -33,31 +39,31 @@ public class SystemInfo {
     static final String APP_PUBLIC_VERSION = "1.0.0";
     static final String DEFAULT_DATE = "19000101";
 
-    static final Image ICON = new Image("file:src/main/resources/" + "icon/Icon.png");
-    static final Image SETTING = new Image("file:src/main/resources/" + "icon/Setting.png");
-    static final Image MINIMIZE = new Image("file:src/main/resources/" + "icon/Minimize.png");
-    static final Image CLOSE = new Image("file:src/main/resources/" + "icon/Close.png");
-    static final Image TIME = new Image("file:src/main/resources/" + "icon/Time.png");
-    static final Image DELETE_UNPRESSED = new Image("file:src/main/resources/" + "icon/Delete_Unpressed.png");
-    static final Image DELETE_PRESSED = new Image("file:src/main/resources/" + "icon/Delete_Pressed.png");
-    static final Image ADD_UNPRESSED = new Image("file:src/main/resources/" + "icon/Add_Unpressed.png");
-    static final Image ADD_PRESSED = new Image("file:src/main/resources/" + "icon/Add_Pressed.png");
-    static final Image DATE = new Image("file:src/main/resources/" + "icon/Date.png");
-    static final Image CONFIRM = new Image("file:src/main/resources/" + "icon/Confirm.png");
-    static final Image EDIT_UNPRESSED = new Image("file:src/main/resources/" + "icon/Edit_Unpressed.png");
-    static final Image EDIT_PRESSED = new Image("file:src/main/resources/" + "icon/Edit_Pressed.png");
-    static final Image CANCEL = new Image("file:src/main/resources/" + "icon/Cancel.png");
-    static final Image SORTUP_PRESSED = new Image("file:src/main/resources/" + "icon/SortUp_Pressed.png");
-    static final Image SORTUP_UNPRESSED = new Image("file:src/main/resources/" + "icon/SortUp_Unpressed.png");
-    static final Image SORTDOWN_PRESSED = new Image("file:src/main/resources/" + "icon/SortDown_Pressed.png");
-    static final Image SORTDOWN_UNPRESSED = new Image("file:src/main/resources/" + "icon/SortDown_Unpressed.png");
-    static final Image ABOUT = new Image("file:src/main/resources/" + "icon/About.png");
+    static final Image ICON = new Image("file:resources/" + "icon/Icon.png");
+    static final Image SETTING = new Image("file:resources/" + "icon/Setting.png");
+    static final Image MINIMIZE = new Image("file:resources/" + "icon/Minimize.png");
+    static final Image CLOSE = new Image("file:resources/" + "icon/Close.png");
+    static final Image TIME = new Image("file:resources/" + "icon/Time.png");
+    static final Image DELETE_UNPRESSED = new Image("file:resources/" + "icon/Delete_Unpressed.png");
+    static final Image DELETE_PRESSED = new Image("file:resources/" + "icon/Delete_Pressed.png");
+    static final Image ADD_UNPRESSED = new Image("file:resources/" + "icon/Add_Unpressed.png");
+    static final Image ADD_PRESSED = new Image("file:resources/" + "icon/Add_Pressed.png");
+    static final Image DATE = new Image("file:resources/" + "icon/Date.png");
+    static final Image CONFIRM = new Image("file:resources/" + "icon/Confirm.png");
+    static final Image EDIT_UNPRESSED = new Image("file:resources/" + "icon/Edit_Unpressed.png");
+    static final Image EDIT_PRESSED = new Image("file:resources/" + "icon/Edit_Pressed.png");
+    static final Image CANCEL = new Image("file:resources/" + "icon/Cancel.png");
+    static final Image SORTUP_PRESSED = new Image("file:resources/" + "icon/SortUp_Pressed.png");
+    static final Image SORTUP_UNPRESSED = new Image("file:resources/" + "icon/SortUp_Unpressed.png");
+    static final Image SORTDOWN_PRESSED = new Image("file:resources/" + "icon/SortDown_Pressed.png");
+    static final Image SORTDOWN_UNPRESSED = new Image("file:resources/" + "icon/SortDown_Unpressed.png");
+    static final Image ABOUT = new Image("file:resources/" + "icon/About.png");
 
-    static final Font FONT_SC_BOLD = Font.loadFont("file:src/main/resources/" + "font/SourceHanSansCN-Bold.ttf", 12);
-    static final Font FONT_SC_HEAVY = Font.loadFont("file:src/main/resources/" + "font/SourceHanSansCN-Heavy.ttf", 12);
-    static final Font FONT_SC_MEDIUM = Font.loadFont("file:src/main/resources/" + "font/SourceHanSansCN-Medium.ttf", 12);
-    static final Font FONT_SC_NORMAL = Font.loadFont("file:src/main/resources/" + "font/SourceHanSansCN-Normal.ttf", 12);
-    static final Font FONT_SC_REGULAR = Font.loadFont("file:src/main/resources/" + "font/SourceHanSansCN-Regular.ttf", 12);
+    static final Font FONT_SC_BOLD = Font.loadFont("file:resources/" + "font/SourceHanSansCN-Bold.ttf", 12);
+    static final Font FONT_SC_HEAVY = Font.loadFont("file:resources/" + "font/SourceHanSansCN-Heavy.ttf", 12);
+    static final Font FONT_SC_MEDIUM = Font.loadFont("file:resources/" + "font/SourceHanSansCN-Medium.ttf", 12);
+    static final Font FONT_SC_NORMAL = Font.loadFont("file:resources/" + "font/SourceHanSansCN-Normal.ttf", 12);
+    static final Font FONT_SC_REGULAR = Font.loadFont("file:resources/" + "font/SourceHanSansCN-Regular.ttf", 12);
 
     static final Paint PAINT_DARK = Paint.valueOf("#333333");
     static final Paint PAINT_DARKER = Paint.valueOf("#21252B");
@@ -80,12 +86,11 @@ public class SystemInfo {
 
     static final Background BG_CARD = new Background(new BackgroundFill(PAINT_CARD, new CornerRadii(8), new Insets(0)));
 
-    //未来和 info.json 结合
-    static String PASSWORD = Base.stringToMD5("mchaomai_233");
+    //未来和 info.json 数据库结合
+    static String PASSWORD = Base.stringToMD5("8008121403");
     static String MOTTO = "好学习是为了不听讲";
     static boolean newToOld = true;
     static String USER_NAME = "Cierra_Runis";
-
     static Image PROFILE_PHOTO = new Image("file:users/Profile_photo.jpg");
 
 }

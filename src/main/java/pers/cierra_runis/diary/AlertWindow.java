@@ -20,7 +20,7 @@ import static pers.cierra_runis.diary.SystemInfo.*;
  */
 public class AlertWindow {
 
-    //存储返回值
+    /** 存储返回值 */
     private static boolean result = false;
 
     /**
@@ -34,7 +34,7 @@ public class AlertWindow {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
 
-        //中部的提示文本
+        // 中部的提示文本
         Label label = new Label(msg);
         label.setFont(FONT_SC_REGULAR);
         label.setTextFill(PAINT_GRAY);
@@ -44,12 +44,14 @@ public class AlertWindow {
         Label.setBackground(BG_DARKER);
         Label.setAlignment(Pos.CENTER);
 
-        //左部的取消按钮
+        // 左部的取消按钮
         Button cancel = new Button("");
         cancel.setPrefWidth(32);
         cancel.setPrefHeight(32);
         cancel.setAlignment(Pos.CENTER);
-        cancel.setBackground(new Background(new BackgroundImage(CANCEL, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(32, 32, false, false, false, false))));
+        cancel.setBackground(
+                new Background(new BackgroundImage(CANCEL, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(32, 32, false, false, false, false))));
         HBox Cancel = new HBox(cancel);
         Cancel.setPrefWidth(20);
         Cancel.setPrefHeight(20);
@@ -58,17 +60,19 @@ public class AlertWindow {
         cancel.setOnMouseEntered(mouseEvent -> Cancel.setBackground(BG_DARK));
         cancel.setOnMouseExited(mouseEvent -> Cancel.setBackground(null));
         cancel.setOnMouseClicked(mouseEvent -> {
-            //按下取消按钮返回 false
+            // 按下取消按钮返回 false
             result = false;
             stage.close();
         });
 
-        //右部的确认按钮
+        // 右部的确认按钮
         Button confirm = new Button("");
         confirm.setPrefWidth(25);
         confirm.setPrefHeight(25);
         confirm.setAlignment(Pos.CENTER);
-        confirm.setBackground(new Background(new BackgroundImage(CONFIRM, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(20, 20, false, false, false, false))));
+        confirm.setBackground(
+                new Background(new BackgroundImage(CONFIRM, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(20, 20, false, false, false, false))));
         HBox Confirm = new HBox(confirm);
         Confirm.setPrefWidth(20);
         Confirm.setPrefHeight(20);
@@ -77,12 +81,12 @@ public class AlertWindow {
         confirm.setOnMouseEntered(mouseEvent -> Confirm.setBackground(BG_DARK));
         confirm.setOnMouseExited(mouseEvent -> Confirm.setBackground(null));
         confirm.setOnMouseClicked(mouseEvent -> {
-            //按下确认按钮返回 true
+            // 按下确认按钮返回 true
             result = true;
             stage.close();
         });
 
-        //底衬
+        // 底衬
         HBox Body = new HBox();
         Body.setLayoutX(0);
         Body.setLayoutY(0);
@@ -91,7 +95,7 @@ public class AlertWindow {
         Body.setBackground(BG_DARKER);
         Body.setAlignment(Pos.CENTER);
 
-        //加组
+        // 加组
         Group group = new Group();
         group.getChildren().add(Body);
         group.getChildren().add(Label);
@@ -101,11 +105,11 @@ public class AlertWindow {
         Scene scene = new Scene(group);
         scene.setFill(null);
 
-        //定位
+        // 定位
         stage.setX((SCREEN_WIDTH - DATE_WIDTH) / 2);
         stage.setY((SCREEN_HEIGHT - DATE_HEIGHT) / 2);
 
-        //配置
+        // 配置
         stage.setTitle(tit);
         stage.getIcons().add(ICON);
         stage.setResizable(false);
@@ -114,13 +118,13 @@ public class AlertWindow {
         stage.setHeight(DATE_HEIGHT);
         stage.setOpacity(0.9);
 
-        //布局
+        // 布局
         stage.setScene(scene);
 
-        //显示
+        // 显示
         stage.showAndWait();
 
-        //关闭窗口后返回结果
+        // 关闭窗口后返回结果
         return result;
 
     }

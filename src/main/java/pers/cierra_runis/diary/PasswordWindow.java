@@ -21,7 +21,7 @@ import static pers.cierra_runis.diary.SystemInfo.*;
  */
 public class PasswordWindow {
 
-    //存储返回值
+    // 存储返回值
     public static boolean result = false;
 
     /**
@@ -35,7 +35,7 @@ public class PasswordWindow {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
 
-        //密码输入框
+        // 密码输入框
         PasswordField passwordField = new PasswordField();
         passwordField.setPrefWidth(PASSWORD_WIDTH);
         passwordField.setPrefHeight(PASSWORD_HEIGHT);
@@ -46,14 +46,14 @@ public class PasswordWindow {
         passwordField.setTooltip(new Tooltip("输入密码"));
         passwordField.setFocusTraversable(false);
 
-        //防止输入密码长度超过 12
+        // 防止输入密码长度超过 12
         passwordField.textProperty().addListener((observableValue, s, t1) -> {
             if (t1.length() > 12) {
                 passwordField.setText(s);
             }
         });
 
-        //校验输入密码和数据库密码的 MD5 值是否相同
+        // 校验输入密码和数据库密码的 MD5 值是否相同
         passwordField.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ENTER) {
                 if (Objects.equals(Base.stringToMD5(passwordField.getText()), PASSWORD)) {
@@ -68,19 +68,18 @@ public class PasswordWindow {
             }
         });
 
-
-        //加组
+        // 加组
         Group group = new Group();
         group.getChildren().add(passwordField);
 
         Scene scene = new Scene(group);
         scene.setFill(null);
 
-        //定位
+        // 定位
         stage.setX((SCREEN_WIDTH - PASSWORD_WIDTH) / 2);
         stage.setY((SCREEN_HEIGHT - PASSWORD_HEIGHT) / 2);
 
-        //配置
+        // 配置
         stage.setTitle("输入密码");
         stage.getIcons().add(ICON);
         stage.setResizable(false);
@@ -89,13 +88,13 @@ public class PasswordWindow {
         stage.setHeight(PASSWORD_HEIGHT);
         stage.setOpacity(0.9);
 
-        //布局
+        // 布局
         stage.setScene(scene);
 
-        //显示
+        // 显示
         stage.showAndWait();
 
-        //关闭窗口后返回结果
+        // 关闭窗口后返回结果
         return result;
 
     }

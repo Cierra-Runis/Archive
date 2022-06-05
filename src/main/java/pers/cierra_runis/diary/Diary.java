@@ -7,16 +7,20 @@ import java.util.Objects;
  * 这个 Diary 类主要用于文件操作。<br/>
  *
  * @author 8008121403
+ * @author 8008121407
  * @version 1.0.0
  */
 public class Diary {
+    /** 年月日，例如 19000101 */
+    String date;
+    /** 时间，例如 0000 */
+    String time = "0000";
+    /** 标题字符串 */
+    String titleString = "无标题";
+    /** 文本字符串直接储存所有文本信息 */
+    String textString = "";
 
-    String date;                                    //date 年月日，例如 19000101
-    String time = "0000";                           //time 时间，例如 0000
-    String titleString = "无标题";                   //titleString 标题字符串
-    String textString = "";                         //textString 文本字符串直接储存所有文本信息
-
-    //这里要求 date 合法
+    // 这里要求 date 合法
     public Diary(String date) {
         this.date = date;
     }
@@ -28,8 +32,8 @@ public class Diary {
      */
     public void saveDiary() {
 
-        //如果这个类的 date 已经存在，那么我们删去原先的
-        //对于 添加日记 已在 DateWindow 保证上述情形不存在，这是为了 编辑日记 而编写的
+        // 如果这个类的 date 已经存在，那么我们删去原先的
+        // 对于 添加日记 已在 DateWindow 保证上述情形不存在，这是为了 编辑日记 而编写的
         if (Base.isDateExisted(date)) {
             System.out.printf("所想保存日记的 timeStamp (%s) 对应的 date 已经存在，正在删除原先日记\n", date + time);
             deleteDiary();
@@ -64,7 +68,7 @@ public class Diary {
         File[] filesInDiarysFile = diarysFile.listFiles();
 
         for (File file : Objects.requireNonNull(filesInDiarysFile)) {
-            //当 file 是文件夹且 date 对的上时
+            // 当 file 是文件夹且 date 对的上时
             if (file.isDirectory() && file.getName().substring(0, 8).equals(date)) {
                 System.out.printf("已删除 %s 文件夹\n", file.getName());
                 Base.delFiles(file);
@@ -84,7 +88,7 @@ public class Diary {
         File[] filesInDiarysFile = diarysFile.listFiles();
 
         for (File file : Objects.requireNonNull(filesInDiarysFile)) {
-            //当 file 是文件夹且 date 对的上时
+            // 当 file 是文件夹且 date 对的上时
             if (file.isDirectory() && file.getName().substring(0, 8).equals(date)) {
 
                 System.out.printf("已找到 %s 文件夹，正在读取\n", file.getName());
@@ -124,10 +128,10 @@ public class Diary {
         File[] filesInDiarysFile = diarysFile.listFiles();
 
         for (File file : Objects.requireNonNull(filesInDiarysFile)) {
-            //当 file 是文件夹且 date 对的上时
+            // 当 file 是文件夹且 date 对的上时
             if (file.isDirectory() && file.getName().substring(0, 8).equals(date)) {
 
-                //Q: 这里逻辑我晕了
+                // Q: 这里逻辑我晕了
                 Diary newDiary = new Diary(date);
                 newDiary.titleString = titleString;
                 newDiary.textString = textString;

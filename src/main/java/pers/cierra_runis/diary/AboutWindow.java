@@ -24,10 +24,14 @@ import static pers.cierra_runis.diary.SystemInfo.*;
  */
 public class AboutWindow {
 
-    static double x1; // 用于移动页面的参数
-    static double y1; // 用于移动页面的参数
-    static double x_stage; // 用于移动页面的参数
-    static double y_stage; // 用于移动页面的参数
+    /** 用于移动页面的参数 */
+    static double x1;
+    /** 用于移动页面的参数 */
+    static double y1;
+    /** 用于移动页面的参数 */
+    static double x_stage;
+    /** 用于移动页面的参数 */
+    static double y_stage;
 
     /**
      * 创建窗口显示相关信息。<br/>

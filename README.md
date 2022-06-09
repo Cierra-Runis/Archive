@@ -1,2 +1,7 @@
 # java-diary
-java-final-test
+
+## Run
+
+```sh
+$ mvn exec:java
+```

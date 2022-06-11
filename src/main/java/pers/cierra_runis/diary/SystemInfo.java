@@ -61,7 +61,6 @@ public class SystemInfo {
 
     static final Font FONT_SC_BOLD = Font.loadFont("file:resources/" + "font/SourceHanSansCN-Bold.ttf", 12);
     static final Font FONT_SC_HEAVY = Font.loadFont("file:resources/" + "font/SourceHanSansCN-Heavy.ttf", 12);
-    static final Font FONT_SC_MEDIUM = Font.loadFont("file:resources/" + "font/SourceHanSansCN-Medium.ttf", 12);
     static final Font FONT_SC_NORMAL = Font.loadFont("file:resources/" + "font/SourceHanSansCN-Normal.ttf", 12);
     static final Font FONT_SC_REGULAR = Font.loadFont("file:resources/" + "font/SourceHanSansCN-Regular.ttf", 12);
 

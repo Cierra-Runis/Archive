@@ -363,7 +363,7 @@ public class Page extends Application {
 
         //中栏的上部的年份、月份部分
         Text up = new Text(diaryInPage.date.substring(0, 4) + "年，" + Integer.valueOf(diaryInPage.date.substring(4, 6)) + "月");
-        up.setFont(new Font(FONT_SC_MEDIUM.getName(), 15));
+        up.setFont(new Font(FONT_SC_REGULAR.getName(), 15));
         up.setFill(PAINT_GRAY);
         up.setSmooth(true);
         up.setLayoutX((0.54 * HOMEPAGE_WIDTH - up.getBoundsInLocal().getWidth()) / 2);

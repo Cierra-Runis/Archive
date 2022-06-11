@@ -23,7 +23,7 @@ import static pers.cierra_runis.diary.SystemInfo.*;
  */
 public class DateWindow {
 
-    //储存日期
+    /** 储存日期 */
     public static String date;
 
     /**
@@ -39,12 +39,14 @@ public class DateWindow {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
 
-        //左部的自动填充按钮
+        // 左部的自动填充按钮
         Button autoDateFill = new Button("");
         autoDateFill.setPrefWidth(25);
         autoDateFill.setPrefHeight(25);
         autoDateFill.setAlignment(Pos.CENTER);
-        autoDateFill.setBackground(new Background(new BackgroundImage(DATE, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(25, 25, false, false, false, false))));
+        autoDateFill.setBackground(
+                new Background(new BackgroundImage(DATE, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(25, 25, false, false, false, false))));
         HBox AutoFill = new HBox(autoDateFill);
         AutoFill.setPrefWidth(25);
         AutoFill.setPrefHeight(25);
@@ -53,7 +55,7 @@ public class DateWindow {
         autoDateFill.setOnMouseEntered(mouseEvent -> AutoFill.setBackground(BG_DARK));
         autoDateFill.setOnMouseExited(mouseEvent -> AutoFill.setBackground(null));
 
-        //年份的输入框
+        // 年份的输入框
         TextField year = new TextField();
         year.setPrefWidth(48);
         year.setPrefHeight(0.8 * DATE_HEIGHT);
@@ -68,16 +70,17 @@ public class DateWindow {
             }
         });
         year.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-            //当失去焦点时
+            // 当失去焦点时
             if (!t1) {
-                if (!Base.isIntNumber(year.getText(), 4) || Objects.equals(year.getText(), "") || Integer.parseInt(year.getText()) <= 1978) {
+                if (!Base.isIntNumber(year.getText(), 4) || Objects.equals(year.getText(), "")
+                        || Integer.parseInt(year.getText()) <= 1978) {
                     System.out.println("年份格式是四位,年份不能为空，不能为小数，且年份应大于 1978 年");
                     year.requestFocus();
                 }
             }
         });
 
-        //月份的输入框
+        // 月份的输入框
         TextField month = new TextField();
         month.setPrefWidth(30);
         month.setPrefHeight(0.8 * DATE_HEIGHT);
@@ -92,9 +95,11 @@ public class DateWindow {
             }
         });
         month.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-            //当失去焦点时
+            // 当失去焦点时
             if (!t1) {
-                if (!(Base.isIntNumber(month.getText(), 2) || Base.isIntNumber(month.getText(), 1)) || Objects.equals(month.getText(), "") || Integer.parseInt(month.getText()) < 1 || Integer.parseInt(month.getText()) > 12) {
+                if (!(Base.isIntNumber(month.getText(), 2) || Base.isIntNumber(month.getText(), 1))
+                        || Objects.equals(month.getText(), "") || Integer.parseInt(month.getText()) < 1
+                        || Integer.parseInt(month.getText()) > 12) {
                     System.out.println("月份格式是两位,月份不能为空，不能为小数，且月份是 01 至 12 月");
                     month.requestFocus();
                 }
@@ -104,7 +109,7 @@ public class DateWindow {
             }
         });
 
-        //日份的输入框
+        // 日份的输入框
         TextField day = new TextField();
         day.setPrefWidth(30);
         day.setPrefHeight(0.8 * DATE_HEIGHT);
@@ -128,10 +133,14 @@ public class DateWindow {
             }
         });
         day.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-            //当失去焦点时
+            // 当失去焦点时
             if (!t1) {
-                if (!(year.getText() == null || Objects.equals(year.getText(), "") || month.getText() == null || Objects.equals(month.getText(), ""))) {
-                    if (!(Base.isIntNumber(day.getText(), 2) || Base.isIntNumber(day.getText(), 1)) || Objects.equals(day.getText(), "") || (Integer.parseInt(day.getText()) < 1) || (Integer.parseInt(day.getText()) > Base.getDayOfMonth(Integer.parseInt(year.getText()), Integer.parseInt(month.getText())))) {
+                if (!(year.getText() == null || Objects.equals(year.getText(), "") || month.getText() == null
+                        || Objects.equals(month.getText(), ""))) {
+                    if (!(Base.isIntNumber(day.getText(), 2) || Base.isIntNumber(day.getText(), 1))
+                            || Objects.equals(day.getText(), "") || (Integer.parseInt(day.getText()) < 1)
+                            || (Integer.parseInt(day.getText()) > Base.getDayOfMonth(Integer.parseInt(year.getText()),
+                                    Integer.parseInt(month.getText())))) {
                         System.out.println("日份格式是两位,日份不能为空，不能为小数，且日份在 01 至 Base 类所含 getDayOfMonth() 方法返回的天数");
                         day.requestFocus();
                     }
@@ -142,7 +151,7 @@ public class DateWindow {
             }
         });
 
-        //自动填充按钮的具体实现
+        // 自动填充按钮的具体实现
         autoDateFill.setOnMouseClicked(mouseEvent -> {
             year.setText(String.valueOf(calendar.get(Calendar.YEAR)));
             month.setText(String.valueOf(calendar.get(Calendar.MONTH) + 1));
@@ -155,12 +164,14 @@ public class DateWindow {
             }
         });
 
-        //右部的确认按钮
+        // 右部的确认按钮
         Button confirm = new Button("");
         confirm.setPrefWidth(25);
         confirm.setPrefHeight(25);
         confirm.setAlignment(Pos.CENTER);
-        confirm.setBackground(new Background(new BackgroundImage(CONFIRM, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(20, 20, false, false, false, false))));
+        confirm.setBackground(
+                new Background(new BackgroundImage(CONFIRM, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(20, 20, false, false, false, false))));
         HBox Confirm = new HBox(confirm);
         Confirm.setPrefWidth(20);
         Confirm.setPrefHeight(20);
@@ -201,7 +212,7 @@ public class DateWindow {
             }
         });
 
-        //底衬
+        // 底衬
         HBox Body = new HBox();
         Body.setLayoutX(0);
         Body.setLayoutY(0);
@@ -210,7 +221,7 @@ public class DateWindow {
         Body.setBackground(BG_DARKER);
         Body.setAlignment(Pos.CENTER);
 
-        //加组
+        // 加组
         Group group = new Group();
         group.getChildren().add(Body);
         group.getChildren().add(AutoFill);
@@ -219,15 +230,14 @@ public class DateWindow {
         group.getChildren().add(day);
         group.getChildren().add(Confirm);
 
-
         Scene scene = new Scene(group);
         scene.setFill(null);
 
-        //定位
+        // 定位
         stage.setX((SCREEN_WIDTH - DATE_WIDTH) / 2);
         stage.setY((SCREEN_HEIGHT - DATE_HEIGHT) / 2);
 
-        //配置
+        // 配置
         stage.setTitle("输入日期");
         stage.getIcons().add(ICON);
         stage.setResizable(false);
@@ -236,13 +246,13 @@ public class DateWindow {
         stage.setHeight(DATE_HEIGHT);
         stage.setOpacity(0.9);
 
-        //布局
+        // 布局
         stage.setScene(scene);
 
-        //显示
+        // 显示
         stage.showAndWait();
 
-        //关闭窗口后返回结果
+        // 关闭窗口后返回结果
         return date;
 
     }

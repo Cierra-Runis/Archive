@@ -75,7 +75,8 @@ public class SystemInfo {
 
     static final Background BG_DARK = new Background(new BackgroundFill(PAINT_DARK, new CornerRadii(8), new Insets(0)));
 
-    static final Background BG_DARKER = new Background(new BackgroundFill(PAINT_DARKER, new CornerRadii(8), new Insets(0)));
+    static final Background BG_DARKER = new Background(
+            new BackgroundFill(PAINT_DARKER, new CornerRadii(8), new Insets(0)));
 
     static final Background BG_RED = new Background(new BackgroundFill(PAINT_RED, new CornerRadii(8), new Insets(0)));
 
@@ -85,7 +86,7 @@ public class SystemInfo {
 
     static final Background BG_CARD = new Background(new BackgroundFill(PAINT_CARD, new CornerRadii(8), new Insets(0)));
 
-    //未来和 info.json 数据库结合
+    // 未来和 info.json 数据库结合
     static String PASSWORD = Base.stringToMD5("8008121403");
     static String MOTTO = "好学习是为了不听讲";
     static boolean newToOld = true;

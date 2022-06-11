@@ -16,10 +16,12 @@ import java.net.http.HttpResponse;
  * @version 1.0.0
  */
 public class HitokotoResponse {
-
-    public String hitokoto;                         //hitokoto API 返回的句子内容
-    public String from;                             //hitokoto API 返回的句子来源
-    public String uuid;                             //hitokoto API 返回的 uuid，用于网站指引
+    /** 句子内容 */
+    public String hitokoto;
+    /** 句子来源 */
+    public String from;
+    /** uuid，用于网站指引 */
+    public String uuid;
 
     /**
      * 从 https://v1.hitokoto.cn 获取获取信息

@@ -28,17 +28,18 @@ import static pers.cierra_runis.diary.SystemInfo.*;
  * 这个 Page 类用于显示主面板，是用户的最主要使用页面。</br>
  *
  * @author 8008121403
+ * @author 8008121407
  * @version 1.0.0
  */
 public class Page extends Application {
 
-    static double x1;               //用于移动页面的参数
-    static double y1;               //用于移动页面的参数
-    static double x_stage;          //用于移动页面的参数
-    static double y_stage;          //用于移动页面的参数
+    static double x1; // 用于移动页面的参数
+    static double y1; // 用于移动页面的参数
+    static double x_stage; // 用于移动页面的参数
+    static double y_stage; // 用于移动页面的参数
 
-    Diary diaryInPage;              //Page 类所操作的 Diary 类
-    Diary[] diaries;                //diarys 文件夹下的所有日记构成的 Diary 类数组
+    Diary diaryInPage; // Page 类所操作的 Diary 类
+    Diary[] diaries; // diarys 文件夹下的所有日记构成的 Diary 类数组
 
     /**
      * 有参构造 Page 类，显示传入日期所对应的日记。</br>
@@ -78,6 +79,7 @@ public class Page extends Application {
      *
      * @param stage 初始 stage 值
      * @author 8008121403
+     * @author 8008121407
      */
     @Override
     public void start(Stage stage) {
@@ -86,15 +88,16 @@ public class Page extends Application {
             System.out.println("你还没有写过日记。");
         }
 
+        /////////////////////////////////////////////////////////////// 标题相关///////////////////////////////////////////////////////////////
 
-        ///////////////////////////////////////////////////////////////标题相关///////////////////////////////////////////////////////////////
-
-        //标题左部（暂无功能）
+        // 标题左部（暂无功能）
         Button setting = new Button("");
         setting.setPrefWidth(50);
         setting.setPrefHeight(30);
         setting.setAlignment(Pos.CENTER);
-        setting.setBackground(new Background(new BackgroundImage(SETTING, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(20, 18, false, false, false, false))));
+        setting.setBackground(
+                new Background(new BackgroundImage(SETTING, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(20, 18, false, false, false, false))));
         HBox Title_Left = new HBox(setting);
         Title_Left.setPrefWidth(50);
         Title_Left.setPrefHeight(30);
@@ -102,13 +105,15 @@ public class Page extends Application {
         Title_Left.setLayoutY(0);
         setting.setOnMouseEntered(mouseEvent -> Title_Left.setBackground(BG_DARK));
         setting.setOnMouseExited(mouseEvent -> Title_Left.setBackground(null));
-        //TODO: 单击事件
+        // TODO: 单击事件
 
-        //标题右部的最小化按钮
+        // 标题右部的最小化按钮
         Button minimize = new Button("");
         minimize.setPrefWidth(50);
         minimize.setPrefHeight(30);
-        minimize.setBackground(new Background(new BackgroundImage(MINIMIZE, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(20, 20, false, false, false, false))));
+        minimize.setBackground(
+                new Background(new BackgroundImage(MINIMIZE, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(20, 20, false, false, false, false))));
         HBox Title_Right_MINIMIZE = new HBox(minimize);
         Title_Right_MINIMIZE.setPrefWidth(50);
         Title_Right_MINIMIZE.setPrefHeight(30);
@@ -118,11 +123,13 @@ public class Page extends Application {
         minimize.setOnMouseExited(mouseEvent -> Title_Right_MINIMIZE.setBackground(null));
         minimize.setOnMouseClicked(mouseEvent -> stage.setIconified(true));
 
-        //标题右部的关闭按钮
+        // 标题右部的关闭按钮
         Button close = new Button("");
         close.setPrefWidth(50);
         close.setPrefHeight(30);
-        close.setBackground(new Background(new BackgroundImage(CLOSE, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(25, 25, false, false, false, false))));
+        close.setBackground(
+                new Background(new BackgroundImage(CLOSE, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(25, 25, false, false, false, false))));
         HBox Title_Right_CLOSE = new HBox(close);
         Title_Right_CLOSE.setPrefWidth(50);
         Title_Right_CLOSE.setPrefHeight(30);
@@ -133,7 +140,7 @@ public class Page extends Application {
         close.setOnMousePressed(mouseEvent -> Title_Right_CLOSE.setBackground(BG_PINK));
         close.setOnMouseClicked(mouseEvent -> stage.close());
 
-        //标题底衬
+        // 标题底衬
         Label title = new Label(APP_NAME + " - " + diaryInPage.date + " - " + diaryInPage.titleString);
         title.setFont(FONT_SC_NORMAL);
         title.setTextFill(Color.LIGHTGRAY);
@@ -153,18 +160,19 @@ public class Page extends Application {
             y_stage = stage.getY();
         });
 
+        /////////////////////////////////////////////////////////////// 左栏相关///////////////////////////////////////////////////////////////
 
-        ///////////////////////////////////////////////////////////////左栏相关///////////////////////////////////////////////////////////////
-
-        //左栏 VBox 框
+        // 左栏 VBox 框
         VBox Left = new VBox();
         Left.setLayoutX(0.01 * HOMEPAGE_WIDTH);
         Left.setLayoutY(30 + 41);
         Left.setPrefWidth(0.19 * HOMEPAGE_WIDTH);
         Left.setPrefHeight(HOMEPAGE_HEIGHT * HOMEPAGE_WIDTH);
-        Left.setBorder(new Border(new BorderStroke(PAINT_DARK, PAINT_LIGHTDARK, PAINT_DARK, PAINT_DARK, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
+        Left.setBorder(new Border(new BorderStroke(PAINT_DARK, PAINT_LIGHTDARK, PAINT_DARK, PAINT_DARK,
+                BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE,
+                CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
 
-        //左栏日记列表
+        // 左栏日记列表
         VBox LeftList = new VBox();
         LeftList.setLayoutX(0);
         LeftList.setLayoutY(450);
@@ -172,12 +180,12 @@ public class Page extends Application {
 
         if (diaries != null) {
 
-            //头部隔空用 VBox
+            // 头部隔空用 VBox
             VBox blank = new VBox();
             blank.setMaxHeight(8);
             LeftList.getChildren().add(blank);
 
-            //准备名为 list 的 Diary 类数组，按 newToOld 排序
+            // 准备名为 list 的 Diary 类数组，按 newToOld 排序
             Diary[] list = new Diary[diaries.length];
             if (!newToOld) {
                 list = diaries;
@@ -186,7 +194,7 @@ public class Page extends Application {
                     list[i] = diaries[diaries.length - i - 1];
                 }
             }
-            //为每个日记都准备卡片
+            // 为每个日记都准备卡片
             for (Diary diary : list) {
                 HBox card = new HBox();
                 card.setMaxWidth(0.18 * HOMEPAGE_WIDTH);
@@ -205,7 +213,9 @@ public class Page extends Application {
                 up.setLayoutX(20);
                 up.setLayoutY(28);
 
-                Text middle = new Text(diary.date.substring(0, 4) + "-" + diary.date.substring(4, 6) + "-" + diary.date.substring(6) + "  " + diary.time.substring(0, 2) + ":" + diary.time.substring(2, 4) + ":" + diary.time.substring(4));
+                Text middle = new Text(diary.date.substring(0, 4) + "-" + diary.date.substring(4, 6) + "-"
+                        + diary.date.substring(6) + "  " + diary.time.substring(0, 2) + ":" + diary.time.substring(2, 4)
+                        + ":" + diary.time.substring(4));
                 middle.setSmooth(true);
                 middle.setFont(FONT_SC_BOLD);
                 middle.setFill(PAINT_GRAY);
@@ -238,15 +248,15 @@ public class Page extends Application {
                     new Page(diary.date).start(new Stage());
                 });
 
-                //卡片加入左栏日记列表
+                // 卡片加入左栏日记列表
                 LeftList.getChildren().add(card);
             }
         }
 
-        //左栏 VBox 栏获得左栏日记列表
+        // 左栏 VBox 栏获得左栏日记列表
         Left.getChildren().add(LeftList);
 
-        //左部 VBox 拖动的具体实现
+        // 左部 VBox 拖动的具体实现
         Left.setOnMouseDragged(mouseEvent -> {
 
             if ((HOMEPAGE_HEIGHT - LeftList.getHeight() - 50) >= 30 + 41) {
@@ -263,7 +273,7 @@ public class Page extends Application {
 
         });
 
-        //左部 VBox 滚动的具体实现
+        // 左部 VBox 滚动的具体实现
         Left.setOnScroll(scrollEvent -> {
 
             y1 = -scrollEvent.getDeltaY();
@@ -282,21 +292,27 @@ public class Page extends Application {
             }
         });
         Left.setOnMousePressed(mouseEvent -> {
-            //按下获取初始值
+            // 按下获取初始值
             y1 = mouseEvent.getScreenY();
             y_stage = Left.getLayoutY();
         });
 
-        //左部工具栏的添加按钮
+        // 左部工具栏的添加按钮
         Button add = new Button("");
         add.setPrefWidth(30);
         add.setPrefHeight(30);
         add.setAlignment(Pos.CENTER);
-        add.setBackground(new Background(new BackgroundImage(ADD_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false))));
+        add.setBackground(new Background(
+                new BackgroundImage(ADD_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false))));
         add.setLayoutX(12);
         add.setLayoutY(35);
-        add.setOnMousePressed(mouseEvent -> add.setBackground(new Background(new BackgroundImage(ADD_PRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false)))));
-        add.setOnMouseExited(mouseEvent -> add.setBackground(new Background(new BackgroundImage(ADD_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false)))));
+        add.setOnMousePressed(mouseEvent -> add.setBackground(
+                new Background(new BackgroundImage(ADD_PRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false)))));
+        add.setOnMouseExited(mouseEvent -> add.setBackground(new Background(
+                new BackgroundImage(ADD_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false)))));
         add.setOnMouseClicked(mouseEvent -> {
             stage.setOpacity(0.6);
             String dateFromDateWindow = DateWindow.display();
@@ -312,23 +328,31 @@ public class Page extends Application {
             }
         });
 
-        //左部工具栏的排序按钮
+        // 左部工具栏的排序按钮
         Button sort = new Button();
         sort.setPrefWidth(30);
         sort.setPrefHeight(30);
         sort.setAlignment(Pos.CENTER);
-        sort.setBackground(new Background(new BackgroundImage(newToOld ? SORTDOWN_UNPRESSED : SORTUP_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false))));
+        sort.setBackground(new Background(new BackgroundImage(newToOld ? SORTDOWN_UNPRESSED : SORTUP_UNPRESSED,
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
+                new BackgroundSize(30, 30, false, false, false, false))));
         sort.setLayoutX(240);
         sort.setLayoutY(35);
-        sort.setOnMousePressed(mouseEvent -> sort.setBackground(new Background(new BackgroundImage(newToOld ? SORTDOWN_PRESSED : SORTUP_PRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false)))));
-        sort.setOnMouseExited(mouseEvent -> sort.setBackground(new Background(new BackgroundImage(newToOld ? SORTDOWN_UNPRESSED : SORTUP_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false)))));
+        sort.setOnMousePressed(mouseEvent -> sort
+                .setBackground(new Background(new BackgroundImage(newToOld ? SORTDOWN_PRESSED : SORTUP_PRESSED,
+                        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
+                        new BackgroundSize(30, 30, false, false, false, false)))));
+        sort.setOnMouseExited(mouseEvent -> sort
+                .setBackground(new Background(new BackgroundImage(newToOld ? SORTDOWN_UNPRESSED : SORTUP_UNPRESSED,
+                        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
+                        new BackgroundSize(30, 30, false, false, false, false)))));
         sort.setOnMouseClicked(mouseEvent -> {
             newToOld = !newToOld;
             stage.close();
             new Page(diaryInPage.date).start(new Stage());
         });
 
-        //左部工具栏的底衬
+        // 左部工具栏的底衬
         Label left_tool = new Label("");
         HBox Left_Tool = new HBox(left_tool);
         Left_Tool.setPrefWidth(0.2 * HOMEPAGE_WIDTH);
@@ -336,13 +360,14 @@ public class Page extends Application {
         Left_Tool.setLayoutX(0);
         Left_Tool.setLayoutY(30);
         Left_Tool.setBackground(BG_DARK);
-        Left_Tool.setBorder(new Border(new BorderStroke(PAINT_DARK, PAINT_LIGHTDARK, PAINT_LIGHTDARK, PAINT_DARK, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
+        Left_Tool.setBorder(new Border(new BorderStroke(PAINT_DARK, PAINT_LIGHTDARK, PAINT_LIGHTDARK, PAINT_DARK,
+                BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE,
+                CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
         Left_Tool.setAlignment(Pos.CENTER);
 
+        /////////////////////////////////////////////////////////////// 中栏相关///////////////////////////////////////////////////////////////
 
-        ///////////////////////////////////////////////////////////////中栏相关///////////////////////////////////////////////////////////////
-
-        //中栏 VBox 框
+        // 中栏 VBox 框
         VBox Middle = new VBox();
         Middle.setLayoutX(0.23 * HOMEPAGE_WIDTH);
         Middle.setLayoutY(30);
@@ -350,26 +375,30 @@ public class Page extends Application {
         Middle.setPrefHeight(HOMEPAGE_WIDTH * HOMEPAGE_HEIGHT);
         Middle.setSpacing(8);
 
-        //中栏的上部（用于显示时间信息）///////////////////////////////////
+        // 中栏的上部（用于显示时间信息）///////////////////////////////////
         VBox UpMiddle = new VBox();
         UpMiddle.setLayoutX(0);
         UpMiddle.setLayoutY(0);
         UpMiddle.setPrefWidth(0.54 * HOMEPAGE_WIDTH);
-        UpMiddle.setBorder(new Border(new BorderStroke(PAINT_DARK, PAINT_DARK, PAINT_LIGHTDARK, PAINT_DARK, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
+        UpMiddle.setBorder(new Border(new BorderStroke(PAINT_DARK, PAINT_DARK, PAINT_LIGHTDARK, PAINT_DARK,
+                BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE,
+                CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
 
-        //辅助用面板
+        // 辅助用面板
         Pane pane = new Pane();
-        String dateformat = diaryInPage.date.substring(0, 4) + "-" + diaryInPage.date.substring(4, 6) + "-" + diaryInPage.date.substring(6, 8);
+        String dateformat = diaryInPage.date.substring(0, 4) + "-" + diaryInPage.date.substring(4, 6) + "-"
+                + diaryInPage.date.substring(6, 8);
 
-        //中栏的上部的年份、月份部分
-        Text up = new Text(diaryInPage.date.substring(0, 4) + "年，" + Integer.valueOf(diaryInPage.date.substring(4, 6)) + "月");
+        // 中栏的上部的年份、月份部分
+        Text up = new Text(
+                diaryInPage.date.substring(0, 4) + "年，" + Integer.valueOf(diaryInPage.date.substring(4, 6)) + "月");
         up.setFont(new Font(FONT_SC_REGULAR.getName(), 15));
         up.setFill(PAINT_GRAY);
         up.setSmooth(true);
         up.setLayoutX((0.54 * HOMEPAGE_WIDTH - up.getBoundsInLocal().getWidth()) / 2);
         up.setLayoutY(40);
 
-        //中栏的上部的日份部分
+        // 中栏的上部的日份部分
         Text middle = new Text(Integer.valueOf(diaryInPage.date.substring(6, 8)).toString());
         middle.setFont(new Font(FONT_SC_BOLD.getName(), 50));
         middle.setFill(PAINT_GRAY);
@@ -377,25 +406,25 @@ public class Page extends Application {
         middle.setLayoutX((0.54 * HOMEPAGE_WIDTH - middle.getBoundsInLocal().getWidth()) / 2);
         middle.setLayoutY(90);
 
-        //中栏的上部的星期、时间部分
-        Text down = new Text(Base.dateToWeek(dateformat) + "  " + diaryInPage.time.substring(0, 2) + ":" + diaryInPage.time.substring(2, 4));
+        // 中栏的上部的星期、时间部分
+        Text down = new Text(Base.dateToWeek(dateformat) + "  " + diaryInPage.time.substring(0, 2) + ":"
+                + diaryInPage.time.substring(2, 4));
         down.setFont(new Font(FONT_SC_REGULAR.getName(), 15));
         down.setFill(PAINT_GRAY);
         down.setSmooth(true);
         down.setLayoutX((0.54 * HOMEPAGE_WIDTH - down.getBoundsInLocal().getWidth()) / 2);
         down.setLayoutY(120);
 
-        //辅助用面板三孩了
+        // 辅助用面板三孩了
         pane.getChildren().add(up);
         pane.getChildren().add(middle);
         pane.getChildren().add(down);
         pane.setPrefHeight(150);
 
-        //中栏的上部
+        // 中栏的上部
         UpMiddle.getChildren().add(pane);
 
-
-        //中栏的下部（用于显示日记的渲染效果）///////////////////////////////////
+        // 中栏的下部（用于显示日记的渲染效果）///////////////////////////////////
         VBox DownMiddle = new VBox();
         DownMiddle.setLayoutX(50);
         DownMiddle.setLayoutY(10);
@@ -403,15 +432,15 @@ public class Page extends Application {
         DownMiddle.setPrefHeight(HOMEPAGE_HEIGHT - 233);
         DownMiddle.setSpacing(8);
 
-        //为每一行都进行分析渲染
+        // 为每一行都进行分析渲染
         for (String s : diaryInPage.textToStrings()) {
 
-            //准备每行文本的 HBox
+            // 准备每行文本的 HBox
             HBox hBox = new HBox();
 
-            //如果包含日期标签
+            // 如果包含日期标签
             if (Base.isTimeLabel(s)) {
-                //则按日记标签渲染
+                // 则按日记标签渲染
                 Pane time_part = new Pane();
 
                 Label time_icon = new Label();
@@ -419,7 +448,9 @@ public class Page extends Application {
                 time_icon.setMinHeight(25);
                 time_icon.setLayoutX(0);
                 time_icon.setLayoutY(0);
-                time_icon.setBackground(new Background(new BackgroundImage(TIME, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(20, 20, false, false, false, false))));
+                time_icon.setBackground(
+                        new Background(new BackgroundImage(TIME, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                                BackgroundPosition.CENTER, new BackgroundSize(20, 20, false, false, false, false))));
                 time_icon.setAlignment(Pos.CENTER_LEFT);
 
                 Text text = new Text(s + "  ");
@@ -439,7 +470,7 @@ public class Page extends Application {
                 hBox.getChildren().add(hBox1);
 
             } else {
-                //否则按普通文本渲染
+                // 否则按普通文本渲染
                 Text text = new Text(s);
                 text.setSmooth(true);
                 text.setFont(new Font(FONT_SC_BOLD.getName(), 15));
@@ -449,15 +480,15 @@ public class Page extends Application {
                 hBox.getChildren().add(text);
             }
 
-            //渲染完则加入中栏的下部
+            // 渲染完则加入中栏的下部
             DownMiddle.getChildren().add(hBox);
         }
 
-        //中栏（用于整合上下部）///////////////////////////////////
+        // 中栏（用于整合上下部）///////////////////////////////////
         Middle.getChildren().add(UpMiddle);
         Middle.getChildren().add(DownMiddle);
 
-        //中栏 VBox 拖动的具体实现
+        // 中栏 VBox 拖动的具体实现
         Middle.setOnMouseDragged(mouseEvent -> {
 
             if ((HOMEPAGE_HEIGHT - UpMiddle.getHeight() - DownMiddle.getHeight() - 50) >= 30) {
@@ -474,7 +505,7 @@ public class Page extends Application {
 
         });
 
-        //中栏 VBox 滚动的具体实现
+        // 中栏 VBox 滚动的具体实现
         Middle.setOnScroll(scrollEvent -> {
 
             y1 = -scrollEvent.getDeltaY();
@@ -493,29 +524,36 @@ public class Page extends Application {
             }
         });
         Middle.setOnMousePressed(mouseEvent -> {
-            //按下获取初始值
+            // 按下获取初始值
             y1 = mouseEvent.getScreenY();
             y_stage = Middle.getLayoutY();
         });
 
+        /////////////////////////////////////////////////////////////// 底栏相关///////////////////////////////////////////////////////////////
 
-        ///////////////////////////////////////////////////////////////底栏相关///////////////////////////////////////////////////////////////
-
-        //底部工具栏的删除按钮
+        // 底部工具栏的删除按钮
         Button delete = new Button("");
         delete.setPrefWidth(30);
         delete.setPrefHeight(30);
         delete.setAlignment(Pos.CENTER);
-        delete.setBackground(new Background(new BackgroundImage(DELETE_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false))));
+        delete.setBackground(new Background(
+                new BackgroundImage(DELETE_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false))));
         delete.setLayoutX(0.2 * HOMEPAGE_WIDTH + 35);
         delete.setLayoutY(HOMEPAGE_HEIGHT - 35);
         delete.setOnMousePressed(mouseEvent -> {
             if (!Objects.equals(diaryInPage.date, DEFAULT_DATE)) {
-                delete.setBackground(new Background(new BackgroundImage(DELETE_PRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false))));
+                delete.setBackground(new Background(
+                        new BackgroundImage(DELETE_PRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                                BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false))));
             }
         });
-        delete.setOnMouseReleased(mouseEvent -> delete.setBackground(new Background(new BackgroundImage(DELETE_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false)))));
-        delete.setOnMouseExited(mouseEvent -> delete.setBackground(new Background(new BackgroundImage(DELETE_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false)))));
+        delete.setOnMouseReleased(mouseEvent -> delete.setBackground(new Background(
+                new BackgroundImage(DELETE_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false)))));
+        delete.setOnMouseExited(mouseEvent -> delete.setBackground(new Background(
+                new BackgroundImage(DELETE_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false)))));
         delete.setOnMouseClicked(mouseEvent -> {
             if (!Objects.equals(diaryInPage.date, DEFAULT_DATE)) {
                 stage.setOpacity(0.6);
@@ -528,21 +566,29 @@ public class Page extends Application {
             }
         });
 
-        //底部工具栏的编辑按钮
+        // 底部工具栏的编辑按钮
         Button edit = new Button("");
         edit.setPrefWidth(30);
         edit.setPrefHeight(30);
         edit.setAlignment(Pos.CENTER);
-        edit.setBackground(new Background(new BackgroundImage(EDIT_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false))));
+        edit.setBackground(new Background(
+                new BackgroundImage(EDIT_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false))));
         edit.setLayoutX(0.8 * HOMEPAGE_WIDTH - 65);
         edit.setLayoutY(HOMEPAGE_HEIGHT - 35);
         edit.setOnMousePressed(mouseEvent -> {
             if (!Objects.equals(diaryInPage.date, DEFAULT_DATE)) {
-                edit.setBackground(new Background(new BackgroundImage(EDIT_PRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false))));
+                edit.setBackground(new Background(
+                        new BackgroundImage(EDIT_PRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                                BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false))));
             }
         });
-        edit.setOnMouseReleased(mouseEvent -> edit.setBackground(new Background(new BackgroundImage(EDIT_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false)))));
-        edit.setOnMouseExited(mouseEvent -> edit.setBackground(new Background(new BackgroundImage(EDIT_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false)))));
+        edit.setOnMouseReleased(mouseEvent -> edit.setBackground(new Background(
+                new BackgroundImage(EDIT_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false)))));
+        edit.setOnMouseExited(mouseEvent -> edit.setBackground(new Background(
+                new BackgroundImage(EDIT_UNPRESSED, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false)))));
         edit.setOnMouseClicked(mouseEvent -> {
             if (!Objects.equals(diaryInPage.date, DEFAULT_DATE)) {
                 stage.setOpacity(0);
@@ -553,7 +599,7 @@ public class Page extends Application {
             }
         });
 
-        //底部工具栏的底衬
+        // 底部工具栏的底衬
         Label tool = new Label("");
         HBox Tool = new HBox(tool);
         Tool.setPrefWidth(0.6 * HOMEPAGE_WIDTH);
@@ -561,22 +607,25 @@ public class Page extends Application {
         Tool.setLayoutX(0.2 * HOMEPAGE_WIDTH);
         Tool.setLayoutY(HOMEPAGE_HEIGHT - 40);
         Tool.setBackground(BG_DARK);
-        Tool.setBorder(new Border(new BorderStroke(PAINT_LIGHTDARK, PAINT_DARK, PAINT_DARK, PAINT_DARK, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
+        Tool.setBorder(new Border(new BorderStroke(PAINT_LIGHTDARK, PAINT_DARK, PAINT_DARK, PAINT_DARK,
+                BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE,
+                CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
         Tool.setAlignment(Pos.CENTER);
 
+        /////////////////////////////////////////////////////////////// 右栏相关///////////////////////////////////////////////////////////////
 
-        ///////////////////////////////////////////////////////////////右栏相关///////////////////////////////////////////////////////////////
-
-        //右栏 VBox 框
+        // 右栏 VBox 框
         VBox Right = new VBox();
         Right.setSpacing(8);
         Right.setPrefWidth(0.2 * HOMEPAGE_WIDTH);
         Right.setPrefHeight(HOMEPAGE_WIDTH * HOMEPAGE_HEIGHT);
         Right.setLayoutX(0.8 * HOMEPAGE_WIDTH);
         Right.setLayoutY(30);
-        Right.setBorder(new Border(new BorderStroke(PAINT_DARK, PAINT_DARK, PAINT_DARK, PAINT_LIGHTDARK, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
+        Right.setBorder(new Border(new BorderStroke(PAINT_DARK, PAINT_DARK, PAINT_DARK, PAINT_LIGHTDARK,
+                BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
 
-        //头像实现借鉴于 https://www.jianshu.com/p/779090da020f
+        // 头像实现借鉴于 https://www.jianshu.com/p/779090da020f
         StackPane stackPane = new StackPane();
         stackPane.setPrefWidth(70);
         stackPane.setPrefHeight(70);
@@ -591,14 +640,14 @@ public class Page extends Application {
         imageView.setSmooth(true);
         stackPane.getChildren().add(imageView);
 
-        //用户名
+        // 用户名
         Label user_name = new Label(USER_NAME);
         user_name.setTextFill(PAINT_GRAY);
         user_name.setFont(new Font(FONT_SC_BOLD.getName(), 21));
         user_name.setLayoutX(0.8 * HOMEPAGE_WIDTH + 105);
         user_name.setLayoutY(65);
 
-        //用户格言
+        // 用户格言
         Text motto = new Text(MOTTO);
         motto.setLayoutX(0.8 * HOMEPAGE_WIDTH + 105);
         motto.setLayoutY(115);
@@ -606,23 +655,26 @@ public class Page extends Application {
         motto.setFill(PAINT_GRAY);
         motto.setWrappingWidth(160);
 
-
-        //右栏菜单
+        // 右栏菜单
         VBox Menu = new VBox();
         Menu.setLayoutX(0.8 * HOMEPAGE_WIDTH);
         Menu.setLayoutY(160);
         Menu.setPrefWidth(0.2 * HOMEPAGE_WIDTH);
 
-        //右栏菜单的 关于 选项
+        // 右栏菜单的 关于 选项
         VBox About = new VBox();
         About.setPrefHeight(45);
         Pane AboutPane = new Pane();
-        About.setBorder(new Border(new BorderStroke(PAINT_LIGHTDARK, PAINT_DARK, PAINT_LIGHTDARK, PAINT_DARK, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
+        About.setBorder(new Border(new BorderStroke(PAINT_LIGHTDARK, PAINT_DARK, PAINT_LIGHTDARK, PAINT_DARK,
+                BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE,
+                CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
         Button about_icon = new Button();
         about_icon.setMinWidth(45);
         about_icon.setMinHeight(45);
         about_icon.setLayoutX(8);
-        about_icon.setBackground(new Background(new BackgroundImage(ABOUT, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false))));
+        about_icon.setBackground(
+                new Background(new BackgroundImage(ABOUT, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, new BackgroundSize(30, 30, false, false, false, false))));
         Text about_text = new Text("关于");
         about_text.setLayoutX(60);
         about_text.setLayoutY(28);
@@ -637,19 +689,20 @@ public class Page extends Application {
             stage.setOpacity(0.9);
         });
 
-        //关于 选项成了菜单的小孩
+        // 关于 选项成了菜单的小孩
         Menu.getChildren().add(About);
 
-
-        //右栏 Hitokoto 小组件
+        // 右栏 Hitokoto 小组件
         VBox Hitokoto = new VBox();
         Hitokoto.setLayoutX(0.81 * HOMEPAGE_WIDTH);
         Hitokoto.setLayoutY(0.95 * HOMEPAGE_HEIGHT);
         Hitokoto.setMaxWidth(0.18 * HOMEPAGE_WIDTH);
-        Hitokoto.setBorder(new Border(new BorderStroke(PAINT_DARK, PAINT_DARK, PAINT_LIGHTDARK, PAINT_DARK, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
+        Hitokoto.setBorder(new Border(new BorderStroke(PAINT_DARK, PAINT_DARK, PAINT_LIGHTDARK, PAINT_DARK,
+                BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE,
+                CornerRadii.EMPTY, BorderWidths.DEFAULT, Insets.EMPTY)));
 
         Text sentence = new Text();
-        //线程相关由 谢佬（https://github.com/WOo0W） 提供帮助
+        // 线程相关由 谢佬（https://github.com/WOo0W） 提供帮助
         Thread httpThread = new Thread(() -> {
             try {
                 HitokotoResponse hitokotoResponse = HitokotoResponse.getHitokoto();
@@ -658,7 +711,8 @@ public class Page extends Application {
                 String uuid = hitokotoResponse.uuid;
                 Platform.runLater(() -> {
                     sentence.setText("『 " + hitokoto + " 』" + "  ——  " + yurai);
-                    Hitokoto.setOnMouseClicked(event -> getHostServices().showDocument("https://hitokoto.cn/?uuid=" + uuid));
+                    Hitokoto.setOnMouseClicked(
+                            event -> getHostServices().showDocument("https://hitokoto.cn/?uuid=" + uuid));
                 });
             } catch (Exception e) {
                 e.printStackTrace();
@@ -674,16 +728,15 @@ public class Page extends Application {
 
         Hitokoto.getChildren().add(sentence);
 
+        /////////////////////////////////////////////////////////////// 其他相关///////////////////////////////////////////////////////////////
 
-        ///////////////////////////////////////////////////////////////其他相关///////////////////////////////////////////////////////////////
-
-        //底衬
+        // 底衬
         HBox Body = new HBox();
         Body.setPrefWidth(HOMEPAGE_WIDTH);
         Body.setPrefHeight(HOMEPAGE_HEIGHT);
         Body.setBackground(BG_DARK);
 
-        //加组
+        // 加组
         Group group = new Group();
         group.getChildren().add(Body);
         group.getChildren().add(Left);
@@ -708,15 +761,15 @@ public class Page extends Application {
         Scene scene = new Scene(group);
         scene.setFill(null);
 
-        //因为要使用 scene 而放到后面的 鼠标指针图标变换的具体实现
+        // 因为要使用 scene 而放到后面的 鼠标指针图标变换的具体实现
         Hitokoto.setOnMouseEntered(event -> scene.setCursor(Cursor.HAND));
         Hitokoto.setOnMouseExited(event -> scene.setCursor(Cursor.DEFAULT));
 
-        //定位
+        // 定位
         stage.setX((SCREEN_WIDTH - HOMEPAGE_WIDTH) / 2);
         stage.setY((SCREEN_HEIGHT - HOMEPAGE_HEIGHT) / 2);
 
-        //配置
+        // 配置
         stage.setTitle(APP_NAME);
         stage.getIcons().add(ICON);
         stage.setResizable(false);
@@ -725,10 +778,10 @@ public class Page extends Application {
         stage.setHeight(HOMEPAGE_HEIGHT);
         stage.setOpacity(0.9);
 
-        //布局
+        // 布局
         stage.setScene(scene);
 
-        //显示
+        // 显示
         stage.show();
 
     }

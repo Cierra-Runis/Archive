@@ -32,13 +32,13 @@ public class DiaryApplication extends Application {
     @Override
     public void start(Stage stage) {
 
-        File dir = new File("diarys/");
+        File dir = new File("database/");
         if (dir.mkdir()) {
-            System.out.println("diarys 文件夹创建成功");
+            System.out.println("database 文件夹创建成功");
         } else if (dir.exists()) {
-            System.out.println("diarys 文件夹已经存在");
+            System.out.println("database 文件夹已经存在");
         } else {
-            System.out.println("diarys 文件夹创建失败");
+            System.out.println("database 文件夹创建失败");
         }
 
         if (PasswordWindow.display()) {

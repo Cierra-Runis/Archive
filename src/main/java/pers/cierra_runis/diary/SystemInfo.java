@@ -58,6 +58,8 @@ public class SystemInfo {
     static final Image SORTDOWN_PRESSED = new Image("file:resources/" + "icon/SortDown_Pressed.png");
     static final Image SORTDOWN_UNPRESSED = new Image("file:resources/" + "icon/SortDown_Unpressed.png");
     static final Image ABOUT = new Image("file:resources/" + "icon/About.png");
+    static final Image DOWNLOAD_PRESSED = new Image("file:resources/" + "icon/Download_Pressed.png");
+    static final Image DOWNLOAD_UNPRESSED = new Image("file:resources/" + "icon/Download_Unpressed.png");
 
     static final Font FONT_SC_BOLD = Font.loadFont("file:resources/" + "font/SourceHanSansCN-Bold.ttf", 12);
     static final Font FONT_SC_HEAVY = Font.loadFont("file:resources/" + "font/SourceHanSansCN-Heavy.ttf", 12);
@@ -92,5 +94,6 @@ public class SystemInfo {
     static boolean newToOld = true;
     static String USER_NAME = "Cierra_Runis";
     static Image PROFILE_PHOTO = new Image("file:users/Profile_photo.jpg");
+    static boolean connectToNideriji = true;
 
 }

@@ -11,6 +11,7 @@ module pers.cierra_runis.diary {
     requires eu.hansolo.tilesfx;
     requires com.google.gson;
     requires java.net.http;
+    requires java.desktop;
 
     opens pers.cierra_runis.diary to javafx.fxml;
 

@@ -46,7 +46,6 @@ public class Editor {
     public Editor(String date) {
 
         diaryInEditor = new Diary(date);
-        diaryInEditor.readDiary();
         toDate = diaryInEditor.date;
 
     }
@@ -164,7 +163,7 @@ public class Editor {
                 diaryInEditor.time = Base.backTime();
                 diaryInEditor.titleString = textField.getText();
                 diaryInEditor.textString = textArea.getText();
-                diaryInEditor.saveDiary();
+                diaryInEditor.saveDiary(diaryInEditor.time);
                 if (!Objects.equals(diaryInEditor.date, toDate)) {
                     diaryInEditor.transportDiary(toDate);
                 }

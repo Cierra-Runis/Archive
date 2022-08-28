@@ -20,7 +20,9 @@ import static pers.cierra_runis.diary.SystemInfo.*;
  */
 public class AlertWindow {
 
-    /** 存储返回值 */
+    /**
+     * 存储返回值
+     */
     private static boolean result = false;
 
     /**
@@ -29,7 +31,7 @@ public class AlertWindow {
      * @return 用户选择的值
      * @author 8008121403
      */
-    public static boolean display(String tit, String msg) {
+    public static boolean display(String tit, String msg, boolean hasCancel, boolean hasConfirm) {
 
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -56,7 +58,7 @@ public class AlertWindow {
         Cancel.setPrefWidth(20);
         Cancel.setPrefHeight(20);
         Cancel.setLayoutX(12);
-        Cancel.setLayoutY(4);
+        Cancel.setLayoutY(8);
         cancel.setOnMouseEntered(mouseEvent -> Cancel.setBackground(BG_DARK));
         cancel.setOnMouseExited(mouseEvent -> Cancel.setBackground(null));
         cancel.setOnMouseClicked(mouseEvent -> {
@@ -76,8 +78,8 @@ public class AlertWindow {
         HBox Confirm = new HBox(confirm);
         Confirm.setPrefWidth(20);
         Confirm.setPrefHeight(20);
-        Confirm.setLayoutX(188);
-        Confirm.setLayoutY(4);
+        Confirm.setLayoutX(218);
+        Confirm.setLayoutY(8);
         confirm.setOnMouseEntered(mouseEvent -> Confirm.setBackground(BG_DARK));
         confirm.setOnMouseExited(mouseEvent -> Confirm.setBackground(null));
         confirm.setOnMouseClicked(mouseEvent -> {
@@ -99,8 +101,13 @@ public class AlertWindow {
         Group group = new Group();
         group.getChildren().add(Body);
         group.getChildren().add(Label);
-        group.getChildren().add(Cancel);
-        group.getChildren().add(Confirm);
+        if (hasCancel) {
+            group.getChildren().add(Cancel);
+        }
+        if (hasConfirm) {
+            group.getChildren().add(Confirm);
+        }
+
 
         Scene scene = new Scene(group);
         scene.setFill(null);

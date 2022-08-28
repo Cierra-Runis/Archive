@@ -23,7 +23,9 @@ import static pers.cierra_runis.diary.SystemInfo.*;
  */
 public class DateWindow {
 
-    /** 储存日期 */
+    /**
+     * 储存日期
+     */
     public static String date;
 
     /**
@@ -140,7 +142,7 @@ public class DateWindow {
                     if (!(Base.isIntNumber(day.getText(), 2) || Base.isIntNumber(day.getText(), 1))
                             || Objects.equals(day.getText(), "") || (Integer.parseInt(day.getText()) < 1)
                             || (Integer.parseInt(day.getText()) > Base.getDayOfMonth(Integer.parseInt(year.getText()),
-                                    Integer.parseInt(month.getText())))) {
+                            Integer.parseInt(month.getText())))) {
                         System.out.println("日份格式是两位,日份不能为空，不能为小数，且日份在 01 至 Base 类所含 getDayOfMonth() 方法返回的天数");
                         day.requestFocus();
                     }
@@ -202,7 +204,7 @@ public class DateWindow {
                         System.out.println("注意！");
                     }
                 } else {
-                    System.out.printf("选择的 %s 已存在日记\n", enteredDate);
+                    AlertWindow.display("发现冲突", "选择的 " + enteredDate + " 已存在日记", false, true);
                     year.setText("");
                     month.setText("");
                     day.setText("");

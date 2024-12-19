@@ -7,14 +7,14 @@ import java.util.regex.Pattern;
 
 public class Showing {
 
-    //显示指定空格
+    // 显示指定空格
     public static void blank(int num) {
         for (int i = 0; i <= num; i++) {
             System.out.print(" ");
         }
     }
 
-    //判断一个字符串是否为数字
+    // 判断一个字符串是否为数字
     public static boolean isNumeric(String str) {
         Pattern pattern = Pattern.compile("-?[0-9]+(\\.[0-9]+)?");
         String bigStr;
@@ -27,14 +27,14 @@ public class Showing {
         return isNum.matches();
     }
 
-    //冒泡排序
+    // 冒泡排序
     // 借鉴于 https://blog.csdn.net/qq_30184977/article/details/99295865
     public static void sortIn(String[][] input, int index, String way) {
 
         boolean change = false;
         for (int i = 0; i < input.length; i++) {
             for (int j = 1; j < input.length - i; j++) {
-                //如果某人的 index 对应项字典排序高于后者，则交换
+                // 如果某人的 index 对应项字典排序高于后者，则交换
                 if (input[j - 1][index].compareTo(input[j][index]) > 0) {
                     String[] temp = input[j];
                     input[j] = input[j - 1];
@@ -47,7 +47,7 @@ public class Showing {
             }
         }
 
-        //按 index 对应项升序排序完毕，如果降序则反转
+        // 按 index 对应项升序排序完毕，如果降序则反转
         if (Objects.equals(way, "down")) {
             for (int i = 0; i < input.length / 2; i++) {
                 int j = input.length - i - 1;

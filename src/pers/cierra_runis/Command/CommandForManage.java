@@ -34,7 +34,6 @@ public class CommandForManage {
     // 启动用方法
     public void start() {
         Scanner scanner = new Scanner(System.in);
-        scanner.close();
         Random seed = new Random();
 
         System.out.print("Enter command just like /help\n> "); // 提示
@@ -46,6 +45,8 @@ public class CommandForManage {
             System.out.print("Enter command just like " + Help[seed.nextInt(Help.length)] + "\n> ");
             input = scanner.nextLine(); // 再输入
         }
+        scanner.close();
+
     }
 
     // 将字符串数组加上 Title 后左对齐显示
@@ -123,6 +124,7 @@ public class CommandForManage {
 
     // 根据传入的索引将索引和输入的指令分配到对应的处理部分
     public void toCommand(int commandNum, String[] command) {
+
         switch (commandNum) {
             case 0: {
                 ShowHelp();
